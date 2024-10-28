@@ -6,6 +6,7 @@ import AboutPage from "./components/pages/about/AboutPage";
 import ContactPage from "./components/pages/contact/ContactPage";
 import TermsCondPage from "./components/pages/terms&cond/TermsCondPage";
 import HelpPage from "./components/pages/help/HelpPage";
+import ExercisesPage from "./components/pages/exercises/ExercisesPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -33,6 +34,11 @@ function App() {
         {
           path: "help",
           element: <HelpPage />,
+        },
+
+        {
+          path: "exercises",
+          element: <ExercisesPage />,
         },
       ],
     },

@@ -1,5 +1,5 @@
 function ExamPage() {
-  return <div className="">ExamPage</div>;
+  return <section className="min-h-screen">ExamPage</section>;
 }
 
 export default ExamPage;
