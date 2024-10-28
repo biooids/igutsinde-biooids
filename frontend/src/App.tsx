@@ -2,6 +2,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PageNotFound from "./components/mainComp/PageNotFound";
 import MainLayout from "./components/mainComp/MainLayout";
 import HomePage from "./components/pages/home/HomePage";
+import AboutPage from "./components/pages/about/AboutPage";
+import ContactPage from "./components/pages/contact/ContactPage";
+import TermsCondPage from "./components/pages/terms&cond/TermsCondPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -13,6 +16,18 @@ function App() {
         {
           index: true,
           element: <HomePage />,
+        },
+        {
+          path: "about",
+          element: <AboutPage />,
+        },
+        {
+          path: "contact",
+          element: <ContactPage />,
+        },
+        {
+          path: "terms-conditions",
+          element: <TermsCondPage />,
         },
       ],
     },
