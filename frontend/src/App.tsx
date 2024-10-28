@@ -5,6 +5,7 @@ import HomePage from "./components/pages/home/HomePage";
 import AboutPage from "./components/pages/about/AboutPage";
 import ContactPage from "./components/pages/contact/ContactPage";
 import TermsCondPage from "./components/pages/terms&cond/TermsCondPage";
+import HelpPage from "./components/pages/help/HelpPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -28,6 +29,10 @@ function App() {
         {
           path: "terms-conditions",
           element: <TermsCondPage />,
+        },
+        {
+          path: "help",
+          element: <HelpPage />,
         },
       ],
     },

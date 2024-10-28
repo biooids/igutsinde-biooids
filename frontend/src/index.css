@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+header {
+  box-shadow: 10px 1px 10px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: offset-x offset-y blur-radius spread-radius color inset;
+}

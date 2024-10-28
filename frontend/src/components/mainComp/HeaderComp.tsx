@@ -1,13 +1,18 @@
 import { Link } from "react-router-dom";
+import igutsindeLogo from "../../assets/igutsindelogo.png";
 
 function HeaderComp() {
   return (
-    <header>
-      <div>
-        <img src="" alt="" />
+    <header className="flex  justify-between items-center p-3 ">
+      <div className="h-14 w-14">
+        <img
+          src={igutsindeLogo}
+          alt=""
+          className="h-full w-full rounded-full"
+        />
       </div>
       <nav>
-        <ul>
+        <ul className="flex gap-3">
           <li>
             <Link to="..">Home</Link>
           </li>
@@ -17,8 +22,12 @@ function HeaderComp() {
           <li>
             <Link to="contact">Contact</Link>
           </li>
+          <li>
+            <Link to="help">Help</Link>
+          </li>
         </ul>
       </nav>
+      <button className="btn">Log in </button>
     </header>
   );
 }
