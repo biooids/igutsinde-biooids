@@ -28,10 +28,10 @@ function HomePage() {
             Imyitozo uyikora ukanze kuri "kora Imyitozo" aho uhitamo umwitozo 1,
             2 &#x221D; 3, bitewe naho wagejeje wimenyereza. Buri kibazo ugikora
             mumasegonda 60 sec, iyo arangiye utarahitamo kirasubizwa mwibara{" "}
-            <div className="bg-green-500 h-3 w-3 inline-block"></div>. Utsinzwe
-            nikibazo birangwa nibara{" "}
-            <div className="bg-red-500 h-3 w-3 inline-block"></div> ndetse
-            nibara <div className="bg-green-500 h-3 w-3 inline-block"></div>{" "}
+            <span className="bg-green-500 h-3 w-3 inline-block"></span>.
+            Utsinzwe nikibazo birangwa nibara{" "}
+            <span className="bg-red-500 h-3 w-3 inline-block"></span> ndetse
+            nibara <span className="bg-green-500 h-3 w-3 inline-block"></span>{" "}
             rikosora ikibazo, wasoza ibibazo 20 ukanda kuri submit ukabona
             amanota.
           </p>

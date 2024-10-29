@@ -1,5 +1,9 @@
 import exercises from "../../../assets/exercises.jpeg";
+import { useState } from "react";
+import { examQuestions } from "../../../assets/questiions/examQueStions";
 function ExamPage() {
+  const [exercises] = useState([...examQuestions]);
+
   return (
     <section className="min-h-screen flex flex-col gap-3 p-3">
       <h3 className="text-2xl font-bold text-green-500">

@@ -8,6 +8,7 @@ import TermsCondPage from "./components/pages/terms&cond/TermsCondPage";
 import HelpPage from "./components/pages/help/HelpPage";
 import ExercisesPage from "./components/pages/exercises/ExercisesPage";
 import ExamPage from "./components/pages/exam/ExamPage";
+import Exercise from "./components/pages/exercises/Exercise";
 
 function App() {
   const router = createBrowserRouter([
@@ -40,6 +41,10 @@ function App() {
         {
           path: "exercises",
           element: <ExercisesPage />,
+        },
+        {
+          path: "exercise/:exerciseId",
+          element: <Exercise />,
         },
         {
           path: "exam",
