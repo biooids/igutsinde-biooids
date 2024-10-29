@@ -10,7 +10,7 @@ function HomePage() {
       <div className="p-3 flex flex-col gap-3">
         <h1 className="text-3xl font-bold">
           Urakaza neza kuri
-          <span className="font-bold text-green-500"> Igutsinde </span>.
+          <span className="font-bold text-green-500"> Igutsinde </span>
         </h1>
         <p>
           Kuri <span className="font-bold text-green-500">IGUTSINDE</span>{" "}
@@ -51,21 +51,21 @@ function HomePage() {
             <span className="text-green-500"> Pass</span> noneho ugahita werekwa
             nuko byari gusubizwa 1-20
           </p>
-          <Link to="exercises">
+          <Link to="exam">
             <button className="btn w-full">Kora Imyitozo</button>
           </Link>
         </div>
         <div className="home-card flex flex-col gap-3 rounded-lg">
           <h2 className="text-2xl font-bold text-green-500">INKORANYA </h2>
           <div className="flex flex-wrap gap-3">
-            <div className="bg-black p-1 rounded-lg">
-              <div className="h-20 w-30">
+            <div className="bg-black p-1 rounded-lg ">
+              <div className="h-[80px] w-[80px]">
                 <img src={ibyapa} alt="" className="h-full w-full " />
               </div>
               <p className="text-center">Ibyapa</p>
             </div>
-            <div className="bg-black">
-              <div className="h-20 w-30">
+            <div className="bg-black p-1 rounded-lg">
+              <div className="h-[80px] w-[80px]">
                 <img
                   src={irembo}
                   alt=""
@@ -74,14 +74,14 @@ function HomePage() {
               </div>
               <p className="text-center">Irembo</p>
             </div>
-            <div className="bg-black">
-              <div className="h-20 w-30">
+            <div className="bg-black p-1 rounded-lg">
+              <div className="h-[80px] w-[80px]">
                 <img src={igazeti} alt="" className="h-full w-full " />
               </div>
               <p className="text-center">Igazeti</p>
             </div>
-            <div className="bg-black">
-              <div className="h-20 w-30">
+            <div className="bg-black p-1 rounded-lg">
+              <div className="h-[80px] w-[80px]">
                 <img src={igazeti} alt="" className="h-full w-full " />
               </div>
               <p className="text-center">Ibyapa</p>
