@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { exercisesQuestions } from "../../../assets/questiions/exercisesQuestions";
+import { exercisesQuestions } from "../../../assets/questions/exercisesQuestions";
 import { useEffect, useRef, useState } from "react";
 import "./exercises.css";
 

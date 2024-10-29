@@ -1,5 +1,5 @@
 import ExerciseCard from "./ExerciseCard";
-import { exercisesQuestions } from "../../../assets/questiions/exercisesQuestions";
+import { exercisesQuestions } from "../../../assets/questions/exercisesQuestions";
 import { useState } from "react";
 function ExercisesPage() {
   const [exercises] = useState([...exercisesQuestions]);

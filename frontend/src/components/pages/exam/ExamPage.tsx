@@ -1,6 +1,7 @@
-import exercises from "../../../assets/exercises.jpeg";
+import exercisesImage from "../../../assets/exercises.jpeg";
 import { useState } from "react";
-import { examQuestions } from "../../../assets/questiions/examQueStions";
+import { examQuestions } from "../../../assets/questions/examQuestions";
+
 function ExamPage() {
   const [exercises] = useState([...examQuestions]);
 
@@ -17,7 +18,7 @@ function ExamPage() {
       <div className="flex flex-wrap gap-5">
         <div className="home-card flex flex-col gap-3 w-full sm:w-[300px]  p-3  rounded-lg">
           <div className="w-full">
-            <img src={exercises} alt="" className="w-full" />
+            <img src={exercisesImage} alt="" className="w-full" />
           </div>
           <p>
             Exam 1, <span className="text-green-500 font-bold">Ubuntu</span>
@@ -25,7 +26,7 @@ function ExamPage() {
         </div>
         <div className="home-card flex flex-col gap-3 w-full sm:w-[300px]  p-3  rounded-lg">
           <div className="w-full">
-            <img src={exercises} alt="" className="w-full" />
+            <img src={exercisesImage} alt="" className="w-full" />
           </div>
           <p>Exam 2 </p>
         </div>
