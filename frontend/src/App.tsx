@@ -9,6 +9,7 @@ import HelpPage from "./components/pages/help/HelpPage";
 import ExercisesPage from "./components/pages/exercises/ExercisesPage";
 import ExamPage from "./components/pages/exam/ExamPage";
 import Exercise from "./components/pages/exercises/Exercise";
+import Exam from "./components/pages/exam/Exam";
 
 function App() {
   const router = createBrowserRouter([
@@ -47,8 +48,12 @@ function App() {
           element: <Exercise />,
         },
         {
-          path: "exam",
+          path: "exams",
           element: <ExamPage />,
+        },
+        {
+          path: "exam/:examId",
+          element: <Exam />,
         },
       ],
     },

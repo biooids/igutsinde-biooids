@@ -51,8 +51,8 @@ function HomePage() {
             <span className="text-green-500"> Pass</span> noneho ugahita werekwa
             nuko byari gusubizwa 1-20
           </p>
-          <Link to="exam">
-            <button className="btn w-full">Kora Imyitozo</button>
+          <Link to="exams">
+            <button className="btn w-full">Kora Ikizami</button>
           </Link>
         </div>
         <div className="home-card flex flex-col gap-3 rounded-lg">

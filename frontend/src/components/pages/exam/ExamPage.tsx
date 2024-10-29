@@ -1,9 +1,9 @@
-import exercisesImage from "../../../assets/exercises.jpeg";
 import { useState } from "react";
 import { examQuestions } from "../../../assets/questions/examQuestions";
+import ExamCard from "./ExamCard";
 
 function ExamPage() {
-  const [exercises] = useState([...examQuestions]);
+  const [exams] = useState([...examQuestions]);
 
   return (
     <section className="min-h-screen flex flex-col gap-3 p-3">
@@ -16,20 +16,9 @@ function ExamPage() {
         umubwire aguhe uburenganzira bwo kwiga Exam zose
       </p>
       <div className="flex flex-wrap gap-5">
-        <div className="home-card flex flex-col gap-3 w-full sm:w-[300px]  p-3  rounded-lg">
-          <div className="w-full">
-            <img src={exercisesImage} alt="" className="w-full" />
-          </div>
-          <p>
-            Exam 1, <span className="text-green-500 font-bold">Ubuntu</span>
-          </p>
-        </div>
-        <div className="home-card flex flex-col gap-3 w-full sm:w-[300px]  p-3  rounded-lg">
-          <div className="w-full">
-            <img src={exercisesImage} alt="" className="w-full" />
-          </div>
-          <p>Exam 2 </p>
-        </div>
+        {exams.map((exam) => (
+          <ExamCard key={exam.examNumber} examNumber={exam.examNumber} />
+        ))}
       </div>
     </section>
   );

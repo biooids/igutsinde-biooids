@@ -1,5 +1,5 @@
 type ExamQuestions = {
-  exerciseNumber: number;
+  examNumber: number;
   data: DATA[];
 };
 
@@ -12,7 +12,7 @@ type DATA = {
 
 export const examQuestions: ExamQuestions[] = [
   {
-    exerciseNumber: 1,
+    examNumber: 1,
     data: [
       {
         question: "What is the capital of France?",
@@ -35,7 +35,7 @@ export const examQuestions: ExamQuestions[] = [
     ],
   },
   {
-    exerciseNumber: 2,
+    examNumber: 2,
     data: [
       {
         question: "What is the boiling point of water?",
@@ -58,7 +58,7 @@ export const examQuestions: ExamQuestions[] = [
     ],
   },
   {
-    exerciseNumber: 3,
+    examNumber: 3,
     data: [
       {
         question: "What is the square root of 64?",
