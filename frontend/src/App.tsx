@@ -10,6 +10,8 @@ import ExercisesPage from "./components/pages/exercises/ExercisesPage";
 import ExamPage from "./components/pages/exam/ExamPage";
 import Exercise from "./components/pages/exercises/Exercise";
 import Exam from "./components/pages/exam/Exam";
+import LogIn from "./components/pages/auth/LogIn";
+import SignUp from "./components/pages/auth/SignUp";
 
 function App() {
   const router = createBrowserRouter([
@@ -56,6 +58,14 @@ function App() {
           element: <Exam />,
         },
       ],
+    },
+    {
+      path: "/log-in",
+      element: <LogIn />,
+    },
+    {
+      path: "/sign-up",
+      element: <SignUp />,
     },
   ]);
   return <RouterProvider router={router} />;
