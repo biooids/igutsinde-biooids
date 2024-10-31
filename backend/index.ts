@@ -10,8 +10,11 @@ dotenv.config();
 const app = express();
 const PORT = 3000;
 
+if (!process.env.MONGO) {
+  throw new Error("MONGO environment variable is missing.");
+}
 mongoose
-  .connect(process.env.MONGO!)
+  .connect(process.env.MONGO)
   .then(() => {
     console.log("MongoDB Atlas connected");
   })

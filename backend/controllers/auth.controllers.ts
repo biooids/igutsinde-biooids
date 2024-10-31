@@ -28,12 +28,16 @@ export const signUp = async (
     const savedUser = await newUser.save();
     const { password: pass, ...rest } = savedUser.toObject();
 
+    if (!process.env.JWT_SECRET) {
+      throw new Error("JWT_SECRET environment variable is missing.");
+    }
+
     const token = jwt.sign(
       {
         id: savedUser._id,
         isAdmin: savedUser.isAdmin,
       },
-      process.env.JWT_SECRET!
+      process.env.JWT_SECRET
     );
 
     res
@@ -43,6 +47,52 @@ export const signUp = async (
         secure: true,
       })
       .json({ success: true, message: "user created successfully", rest });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const logIn = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { phone, password } = req.body;
+  try {
+    if (!phone || !password) {
+      next(errorUtil(400, "Empty fields. All fields are required."));
+      return;
+    }
+    const user = await Auth.findOne({ phone });
+    if (!user) {
+      next(errorUtil(404, "User not found"));
+      return;
+    }
+    const isValidPassword = await argon2.verify(user.password, password);
+    if (!isValidPassword) {
+      next(errorUtil(400, "Invalid password"));
+      return;
+    }
+    const { password: pass, ...rest } = user.toObject();
+
+    if (!process.env.JWT_SECRET) {
+      throw new Error("JWT_SECRET environment variable is missing.");
+    }
+
+    const token = jwt.sign(
+      {
+        id: user._id,
+        isAdmin: user.isAdmin,
+      },
+      process.env.JWT_SECRET
+    );
+    res
+      .status(200)
+      .cookie("access_token", token, {
+        httpOnly: true,
+        secure: true,
+      })
+      .json({ success: true, message: "user logged in successfully", rest });
   } catch (error) {
     next(error);
   }
