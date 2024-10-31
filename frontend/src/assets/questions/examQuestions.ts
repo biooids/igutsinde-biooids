@@ -15,20 +15,38 @@ export const examQuestions: ExamQuestions[] = [
     examNumber: 1,
     data: [
       {
-        question: "What is the capital of France?",
-        options: ["Paris", "Berlin", "Madrid", "Rome"],
-        ans: 0,
+        question:
+          "Utugarura rumuri turi kuruhande rw'imbere rw'ikinyabiziga tugomba gusa : ",
+        options: [
+          "N'umuhondo",
+          "N'umutuku",
+          "N'umweru",
+          "Ntagisubizo cy'ukuri kirimo",
+        ],
+        ans: 2,
         hint: "It's also known as the 'City of Light.'",
       },
       {
-        question: "Which planet is known as the Red Planet?",
-        options: ["Earth", "Mars", "Jupiter", "Venus"],
-        ans: 1,
+        question:
+          "Icyapa gisobanura akazamuko gashinze cyane kirimubwoko bw'ibyapa bikurikira :",
+        options: [
+          "Ibyapa biburira",
+          "Ibyapa bibuza n'ibitegeka",
+          "Ibyapa byogutambuka bibiri",
+          "B na C nibyo bisubizo by'ukuri",
+        ],
+        ans: 0,
         hint: "It's the fourth planet from the Sun.",
       },
       {
-        question: "What is 5 + 7?",
-        options: ["10", "12", "15", "14"],
+        question:
+          "Ikinyabiziga kigendeshwa na moteri nikinyabiziga gikururwa n'inyamwanswa ntibishobora gukurura ",
+        options: [
+          "ibinyabiziga birenze bine",
+          "ibinyabiziga bipakiye birenze bibiri",
+          "ibinyabiziga birenze bibiri",
+          "B na C nibyo bisubizo by'ukuri",
+        ],
         ans: 1,
         hint: "It's a simple addition.",
       },

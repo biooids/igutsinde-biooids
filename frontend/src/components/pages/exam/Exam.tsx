@@ -20,7 +20,7 @@ function Exam() {
     Array(data.length).fill(null)
   );
   const [startQuiz, setStartQuiz] = useState(false);
-  const [timer, setTimer] = useState(data.length * 30);
+  const [timer, setTimer] = useState(data.length * 60);
   const [lock, setLock] = useState(false); // Lock state for preventing selection
 
   // Define optionRefs with the correct type
