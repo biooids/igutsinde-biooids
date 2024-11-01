@@ -60,9 +60,9 @@ function HeaderComp() {
               className={({ isActive }) =>
                 isActive ? "text-green-500 font-bold" : ""
               }
-              to="help"
+              to="pricing"
             >
-              Help
+              Pricing
             </NavLink>
           </li>
         </ul>
@@ -89,7 +89,7 @@ function HeaderComp() {
         <div className="drawer-content">
           {/* Page content here */}
           <label htmlFor="my-drawer-4" className="drawer-button">
-            <RxHamburgerMenu />
+            <RxHamburgerMenu className="text-3xl" />
           </label>
         </div>
         <div className="drawer-side">
@@ -99,12 +99,57 @@ function HeaderComp() {
             className="drawer-overlay"
           ></label>
           <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-            {/* Sidebar content here */}
             <li>
-              <a>Sidebar Item 1</a>
+              <NavLink
+                to="/"
+                onClick={() =>
+                  ((
+                    document.getElementById("my-drawer-4") as HTMLInputElement
+                  ).checked = false)
+                }
+                className={({ isActive }) => (isActive ? "bg-gray-700" : "")}
+              >
+                Home
+              </NavLink>
             </li>
             <li>
-              <a>Sidebar Item 2</a>
+              <NavLink
+                className={({ isActive }) => (isActive ? "bg-gray-700" : "")}
+                to="about"
+                onClick={() =>
+                  ((
+                    document.getElementById("my-drawer-4") as HTMLInputElement
+                  ).checked = false)
+                }
+              >
+                About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) => (isActive ? "bg-gray-700" : "")}
+                to="contact"
+                onClick={() =>
+                  ((
+                    document.getElementById("my-drawer-4") as HTMLInputElement
+                  ).checked = false)
+                }
+              >
+                Contact
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) => (isActive ? "bg-gray-700" : "")}
+                to="pricing"
+                onClick={() =>
+                  ((
+                    document.getElementById("my-drawer-4") as HTMLInputElement
+                  ).checked = false)
+                }
+              >
+                pricing
+              </NavLink>
             </li>
           </ul>
         </div>

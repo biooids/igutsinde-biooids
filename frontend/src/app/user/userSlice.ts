@@ -1,6 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+type UserData = {
+  success: boolean;
+  message: string;
+  user: User;
+};
+
+type User = {
+  userName: string;
+  isAdmin: boolean;
+  phone: string;
+  profilePic: string;
+};
+
+type UserState = {
+  currentUser: UserData | null;
+  loading: boolean;
+  error: string | null;
+};
+
+const initialState: UserState = {
   currentUser: null,
   loading: false,
   error: null,

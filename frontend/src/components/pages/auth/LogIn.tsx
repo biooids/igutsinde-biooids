@@ -43,6 +43,7 @@ function LogIn() {
       if (!data.success) {
         dispatch(actionFailure(data.message));
       } else {
+        console.log(data);
         dispatch(actionSuccess(data));
         navigate("/");
       }

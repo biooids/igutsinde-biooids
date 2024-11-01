@@ -12,6 +12,7 @@ import Exercise from "./components/pages/exercises/Exercise";
 import Exam from "./components/pages/exam/Exam";
 import LogIn from "./components/pages/auth/LogIn";
 import SignUp from "./components/pages/auth/SignUp";
+import Pricing from "./components/pages/pay/Pricing";
 
 function App() {
   const router = createBrowserRouter([
@@ -39,6 +40,10 @@ function App() {
         {
           path: "help",
           element: <HelpPage />,
+        },
+        {
+          path: "pricing",
+          element: <Pricing />,
         },
 
         {
