@@ -46,7 +46,11 @@ export const signUp = async (
         httpOnly: true,
         secure: true,
       })
-      .json({ success: true, message: "user created successfully", rest });
+      .json({
+        success: true,
+        message: "user created successfully",
+        user: rest,
+      });
   } catch (error) {
     next(error);
   }
@@ -92,7 +96,11 @@ export const logIn = async (
         httpOnly: true,
         secure: true,
       })
-      .json({ success: true, message: "user logged in successfully", rest });
+      .json({
+        success: true,
+        message: "user logged in successfully",
+        user: rest,
+      });
   } catch (error) {
     next(error);
   }

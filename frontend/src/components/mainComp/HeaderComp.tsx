@@ -12,7 +12,7 @@ import { AppDispatch, RootState } from "../../app/store";
 function HeaderComp() {
   const dispatch = useDispatch<AppDispatch>();
   const { theme } = useSelector((state: RootState) => state.theme);
-
+  const { currentUser } = useSelector((state: RootState) => state.user);
   return (
     <header className="flex justify-between items-center p-3">
       <div className="h-14 w-14">
@@ -67,9 +67,13 @@ function HeaderComp() {
           </li>
         </ul>
       </nav>
-      <Link to="/log-in">
-        <button className="btn">Log in</button>
-      </Link>
+      {currentUser ? (
+        currentUser.user.userName
+      ) : (
+        <Link to="/log-in">
+          <button className="btn">Log in</button>
+        </Link>
+      )}
 
       <span
         onClick={() => {
