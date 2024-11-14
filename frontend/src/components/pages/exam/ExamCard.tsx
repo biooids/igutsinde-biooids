@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import exercisesImage from "../../../assets/exercises.jpeg";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../app/store";
 
 type ExamCardProps = {
   examNumber: number;
 };
 function ExamCard({ examNumber }: ExamCardProps) {
+  const { currentUser } = useSelector((state: RootState) => state.user);
+
   return (
     <div className="home-card flex flex-col gap-3 w-full sm:w-[300px]  p-3  rounded-lg">
       <div className="w-full">
@@ -18,9 +22,15 @@ function ExamCard({ examNumber }: ExamCardProps) {
           ""
         )}
       </p>
-      <Link to={`/exam/${examNumber}`}>
-        <button className="btn w-full">Tangira</button>
-      </Link>
+      {(currentUser && currentUser.user.paid) || examNumber === 1 ? (
+        <Link to={`/exam/${examNumber}`}>
+          <button className="btn w-full">Tangira</button>
+        </Link>
+      ) : (
+        <Link to="/pricing">
+          <button className="btn w-full">Tangira</button>
+        </Link>
+      )}
     </div>
   );
 }
