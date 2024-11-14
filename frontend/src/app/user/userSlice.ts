@@ -10,6 +10,7 @@ type User = {
   userName: string;
   isAdmin: boolean;
   phone: string;
+  paid: boolean;
   profilePic: string;
 };
 

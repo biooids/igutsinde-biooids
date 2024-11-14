@@ -4,6 +4,8 @@ import igutsindeLogo from "../../assets/igutsindelogo.png";
 import { FaSun } from "react-icons/fa";
 import { FaRegMoon } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { RiCheckDoubleFill } from "react-icons/ri";
+import { RxCross2 } from "react-icons/rx";
 
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../../app/theme/themeSlice";
@@ -68,7 +70,16 @@ function HeaderComp() {
         </ul>
       </nav>
       {currentUser ? (
-        currentUser.user.userName
+        <div className="flex items-center gap-1">
+          <p> {currentUser.user.userName}</p>
+          <p>
+            {currentUser.user.paid ? (
+              <RiCheckDoubleFill className="text-green-500" />
+            ) : (
+              <RxCross2 className="text-red-500" />
+            )}
+          </p>
+        </div>
       ) : (
         <Link to="/log-in">
           <button className="btn">Log in</button>
