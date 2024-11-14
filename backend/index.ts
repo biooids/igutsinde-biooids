@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const PORT = 3000;
+const PORT = 5000;
 
 if (!process.env.MONGO) {
   throw new Error("MONGO environment variable is missing.");

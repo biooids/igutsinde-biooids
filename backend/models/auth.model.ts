@@ -18,6 +18,10 @@ const authSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  paid: {
+    type: Boolean,
+    default: false,
+  },
   profilePic: {
     type: String,
     default:
