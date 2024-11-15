@@ -1,14 +1,15 @@
 import express, { NextFunction, Request, Response } from "express";
 import cookieParser from "cookie-parser";
-import mongoose from "mongoose";
-
-import authRouter from "./routes/auth.routes";
-
 import dotenv from "dotenv";
 dotenv.config();
 
+import mongoose from "mongoose";
+
+import authRouter from "./routes/auth.routes";
+import paymentRouter from "./routes/payment.routes";
+
 const app = express();
-const PORT = 5000;
+const PORT = 3000;
 
 if (!process.env.MONGO) {
   throw new Error("MONGO environment variable is missing.");
@@ -29,6 +30,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/auth", authRouter);
+app.use("/api/payment", paymentRouter);
 
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   const statusCode = error.status || 500;

@@ -1,8 +1,16 @@
 //@ts-nocheck
+import { useSelector } from "react-redux";
 import "./pay.css";
 import { FlutterWaveButton, closePaymentModal } from "flutterwave-react-v3";
+import { RootState } from "../../../app/store";
+import { useState } from "react";
 
 function Pricing() {
+  const { currentUser } = useSelector((state: RootState) => state.user);
+
+  const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState(null);
+
   const config = {
     public_key: "FLWPUBK_TEST-9e84acc10c215760d7577ab2b2c8274a-X",
     tx_ref: Date.now(),
@@ -10,9 +18,9 @@ function Pricing() {
     currency: "RWF",
     payment_options: "card,mobilemoney,ussd",
     customer: {
-      email: "ehwapyongm@gmailcom",
-      phone_number: "",
-      name: "john doe",
+      email: `${currentUser.user.userName}@gmail.com` || "user@gmail.com",
+      phone_number: "250",
+      name: `${currentUser ? currentUser.user.userName : ""}`,
     },
     customizations: {
       title: "Igutsinde",
@@ -21,11 +29,57 @@ function Pricing() {
     },
   };
 
+  const handleFlutterWavePayment = async (payload) => {
+    console.log("data for req body", payload);
+    try {
+      setError(null);
+      setShowModal(false);
+
+      const res = await fetch("/api/payment/payWithFlutterwave", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data.success) {
+        setShowModal(true);
+      } else {
+        setError(data.message);
+        setShowModal(true);
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      setError(error.message);
+      setShowModal(true);
+      return;
+    }
+  };
+
   const fwConfig = {
     ...config,
     text: "Pay with Flutterwave!",
     callback: (response) => {
-      console.log(response);
+      if (response.status === "successful") {
+        console.log(response);
+        handleFlutterWavePayment({
+          tx_ref: `${response.tx_ref}`,
+          order_id: `${response.transaction_id}`,
+          amount: `${response.amount}`,
+          currency: response.currency,
+          email: response.customer.email,
+          phone_number: response.customer.phone_number,
+          fullname: response.customer.name,
+        });
+      } else {
+        console.log(response.status);
+        setError(response.status);
+        setShowModal(true);
+      }
+
       closePaymentModal(); // this will close the modal programmatically
     },
     onClose: () => {},
@@ -46,6 +100,44 @@ function Pricing() {
           <p className="line-through text-red-500">2000/Ukwezi</p>
         </div>
         <FlutterWaveButton {...fwConfig} className="btn" />
+
+        {showModal && (
+          <div
+            role="alert"
+            className={`alert ${error ? "alert-error" : "alert-success"}`}
+          >
+            {error ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 shrink-0 stroke-current"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 shrink-0 stroke-current"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            )}
+            <span>{error ? error : "Payment Successful"}</span>
+          </div>
+        )}
       </div>
     </section>
   );
