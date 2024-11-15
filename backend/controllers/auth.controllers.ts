@@ -36,6 +36,7 @@ export const signUp = async (
       {
         id: savedUser._id,
         isAdmin: savedUser.isAdmin,
+        paid: savedUser.paid,
       },
       process.env.JWT_SECRET
     );
@@ -87,6 +88,7 @@ export const logIn = async (
       {
         id: user._id,
         isAdmin: user.isAdmin,
+        paid: user.paid,
       },
       process.env.JWT_SECRET
     );
