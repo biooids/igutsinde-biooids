@@ -1,5 +1,11 @@
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+import { Navigate, Outlet } from "react-router-dom";
+
 function AuthenticatedUser() {
-  return <div>AuthenticatedUser</div>;
+  const { currentUser } = useSelector((state: RootState) => state.user);
+
+  return currentUser ? <Outlet /> : <Navigate to="/sign-up" />;
 }
 
 export default AuthenticatedUser;

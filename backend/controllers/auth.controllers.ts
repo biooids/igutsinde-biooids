@@ -22,7 +22,7 @@ export const signUp = async (
     const newUser = new Auth({
       userName,
       password: hashedPassword,
-      phone,
+      phone: `${25 + phone}`,
     });
 
     const savedUser = await newUser.save();

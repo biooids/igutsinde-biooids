@@ -13,18 +13,20 @@ export const payWithFlutterWave = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log("data from body", req.body);
+  // console.log("data from body", req.body);
   try {
-    // const payload = {
-    //   tx_ref: "MC-158523s09v5050e8",
-    //   order_id: "USS_URG_893982923s2323",
-    //   amount: "1300",
-    //   currency: "RWF",
-    //   email: "olufemi@flw.com",
-    //   phone_number: "054709929220",
-    //   fullname: "John Madakin",
-    // };
-    const response = await flw.MobileMoney.rwanda(req.body);
+    const payload = {
+      tx_ref: "MC-158523s09v5050e8",
+      order_id: "USS_URG_893982923s2323",
+      amount: "1300",
+      currency: "RWF",
+      email: "olufemi@flw.com",
+      phone_number: "054709929220",
+      fullname: "John Madakin",
+    };
+    // const response = await flw.MobileMoney.rwanda(req.body);
+    const response = await flw.MobileMoney.rwanda(payload);
+    console.log(response);
     res.json({
       success: true,
       message: "Payment successful",

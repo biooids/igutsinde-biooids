@@ -13,57 +13,64 @@ import Exam from "./components/pages/exam/Exam";
 import LogIn from "./components/pages/auth/LogIn";
 import SignUp from "./components/pages/auth/SignUp";
 import Pricing from "./components/pages/pay/Pricing";
+import AuthenticatedUser from "./components/mainComp/AuthenticatedUser";
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <MainLayout />,
+      element: <AuthenticatedUser />,
       errorElement: <PageNotFound />,
       children: [
         {
-          index: true,
-          element: <HomePage />,
-        },
-        {
-          path: "about",
-          element: <AboutPage />,
-        },
-        {
-          path: "contact",
-          element: <ContactPage />,
-        },
-        {
-          path: "terms-conditions",
-          element: <TermsCondPage />,
-        },
-        {
-          path: "help",
-          element: <HelpPage />,
-        },
-        {
-          path: "pricing",
-          element: <Pricing />,
-        },
+          element: <MainLayout />,
+          children: [
+            {
+              index: true,
+              element: <HomePage />,
+            },
+            {
+              path: "about",
+              element: <AboutPage />,
+            },
+            {
+              path: "contact",
+              element: <ContactPage />,
+            },
+            {
+              path: "terms-conditions",
+              element: <TermsCondPage />,
+            },
+            {
+              path: "help",
+              element: <HelpPage />,
+            },
+            {
+              path: "pricing",
+              element: <Pricing />,
+            },
 
-        {
-          path: "exercises",
-          element: <ExercisesPage />,
-        },
-        {
-          path: "exercise/:exerciseId",
-          element: <Exercise />,
-        },
-        {
-          path: "exams",
-          element: <ExamPage />,
-        },
-        {
-          path: "exam/:examId",
-          element: <Exam />,
+            {
+              path: "exercises",
+              element: <ExercisesPage />,
+            },
+            {
+              path: "exercise/:exerciseId",
+              element: <Exercise />,
+            },
+            {
+              path: "exams",
+              element: <ExamPage />,
+            },
+            {
+              path: "exam/:examId",
+              element: <Exam />,
+            },
+          ],
         },
       ],
     },
+
     {
       path: "/log-in",
       element: <LogIn />,
