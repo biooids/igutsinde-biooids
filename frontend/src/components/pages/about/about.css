@@ -1,0 +1,4 @@
+.about-shadowed-card {
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: offset-x offset-y blur-radius spread-radius color inset;
+}

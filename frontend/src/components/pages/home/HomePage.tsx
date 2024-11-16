@@ -13,17 +13,17 @@ function HomePage() {
           <span className="font-bold text-green-500"> Igutsinde </span>
         </h1>
         <p>
-          Kuri <span className="font-bold text-green-500">IGUTSINDE</span>{" "}
-          TUBAFASHA KWIMENYEREZA GUKORA IBIZAMINI BITANGWA NA POLISI KURI
-          MUDASOBYA UKORA IKIZAMI UBONA NIBISUBIZO ICYARIMWE UKENEYE UBUNDI
-          BUSOBANURO WATWANDIKIRA KURI WHATSAPP CYANGWA UKADUHAMAGARA KURI{" "}
+          kuri <span className="font-bold text-green-500">igutsinde</span>{" "}
+          tubafasha kwimenyerereza gukora ibizamini bitangwa na polisi kuri
+          mudasobwa ukora ikizami ubona nibisubizo icyarimwe ukeneeye ubundi
+          busobanuro watwandikira kuri whatsapp cyangwa ukaduhamagara kuri{" "}
           <span className="font-bold text-green-500"> 0787832480 </span>
-          CYANGWA <span className="font-bold text-green-500"> 0790931024</span>
+          cyangwa <span className="font-bold text-green-500"> 0790931024.</span>
         </p>
       </div>
       <div className="home-page flex flex-col sm:grid gap-3 p-3">
         <div className="home-card flex justify-between flex-col gap-3 rounded-lg">
-          <h2 className="text-2xl font-bold text-green-500">IMYITOZO </h2>
+          <h2 className="text-2xl font-bold text-green-500">Imyitozo </h2>
           <p>
             Imyitozo uyikora ukanze kuri "kora Imyitozo" aho uhitamo umwitozo 1,
             2 &#x221D; 3, bitewe naho wagejeje wimenyereza. Buri kibazo ugikora
@@ -40,12 +40,12 @@ function HomePage() {
           </Link>
         </div>
         <div className="home-card flex justify-between flex-col gap-3 rounded-lg">
-          <h2 className="text-2xl font-bold text-green-500">IKIZAMI </h2>
+          <h2 className="text-2xl font-bold text-green-500">Ikizami </h2>
           <p>
             Ikizami ugikora ukanze kuri "kora Ikizami" aho uhitamo Ikizami 1, 2
             &#x221D; 3, bitewe naho wagejeje wimenyereza. Buri kizami kikorwa 20
             min, iyo arangiye utaragisoza uhita werekwa amanota wagize kuri 20.
-            Utsinzwe n'Ikizami birangwa nijambo{" "}
+            Utsinzwe n'Ikizami birangwa nijambo.
             <span className="text-red-500"> Failed</span> watsinda bikarangwa
             nijambo
             <span className="text-green-500"> Pass</span> noneho ugahita werekwa
@@ -56,7 +56,7 @@ function HomePage() {
           </Link>
         </div>
         <div className="home-card flex flex-col gap-3 rounded-lg">
-          <h2 className="text-2xl font-bold text-green-500">INKORANYA </h2>
+          <h2 className="text-2xl font-bold text-green-500">Inkoranya </h2>
           <div className="flex flex-wrap gap-3">
             <div className="bg-black p-1 rounded-lg ">
               <div className="h-[80px] w-[80px]">

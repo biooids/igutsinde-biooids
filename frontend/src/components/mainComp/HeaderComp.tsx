@@ -47,7 +47,7 @@ function HeaderComp() {
               About
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink
               className={({ isActive }) =>
                 isActive ? "text-green-500 font-bold" : ""
@@ -56,7 +56,7 @@ function HeaderComp() {
             >
               Contact
             </NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink
               className={({ isActive }) =>
@@ -70,7 +70,7 @@ function HeaderComp() {
         </ul>
       </nav>
       {currentUser ? (
-        <div className="flex items-center gap-1">
+        <div className="flex items-center justify-center  gap-1">
           <p> {currentUser.user.userName}</p>
           <p>
             {currentUser.user.paid ? (
@@ -136,7 +136,7 @@ function HeaderComp() {
                 About
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 className={({ isActive }) => (isActive ? "bg-gray-700" : "")}
                 to="contact"
@@ -148,7 +148,7 @@ function HeaderComp() {
               >
                 Contact
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink
                 className={({ isActive }) => (isActive ? "bg-gray-700" : "")}
