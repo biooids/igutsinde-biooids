@@ -68,7 +68,7 @@ export const logIn = async (
       next(errorUtil(400, "Empty fields. All fields are required."));
       return;
     }
-    const user = await Auth.findOne({ phone });
+    const user = await Auth.findOne({ phone: `${25 + phone}` });
     if (!user) {
       next(errorUtil(404, "User not found"));
       return;

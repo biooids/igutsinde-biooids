@@ -35,8 +35,8 @@ app.use("/api/payment", paymentRouter);
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   const statusCode = error.status || 500;
   const message =
-    `action failed due to : ${error.message}` ||
-    "action failed due to : internal server error";
+    `Iki gikorwa cyanze bitewe nuko: ${error.message}` ||
+    "Iki gikorwa cyanze bitewe nuko: internal server error";
   res.status(statusCode).json({ success: false, statusCode, message });
 });
 

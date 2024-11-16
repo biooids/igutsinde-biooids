@@ -1,12 +1,15 @@
 //@ts-nocheck
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./pay.css";
 import { FlutterWaveButton, closePaymentModal } from "flutterwave-react-v3";
 import { RootState } from "../../../app/store";
 import { useState } from "react";
+import { actionSuccess } from "../../../app/user/userSlice";
+import { RiCheckDoubleFill } from "react-icons/ri";
 
 function Pricing() {
   const { currentUser } = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch<AppDispatch>();
 
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState(null);
@@ -35,7 +38,7 @@ function Pricing() {
       setError(null);
       setShowModal(false);
 
-      const res = await fetch("/api/payment/payWithFlutterwave", {
+      const res = await fetch("/api/payment/payWithFlutterWave", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,8 +46,8 @@ function Pricing() {
         body: JSON.stringify(payload),
       });
       const data = await res.json();
-      console.log(data);
       if (data.success) {
+        dispatch(actionSuccess(data));
         setShowModal(true);
       } else {
         setError(data.message);
@@ -73,6 +76,7 @@ function Pricing() {
           email: response.customer.email,
           phone_number: response.customer.phone_number,
           fullname: response.customer.name,
+          id: currentUser.user._id,
         });
       } else {
         console.log(response.status);
@@ -99,8 +103,13 @@ function Pricing() {
           <p>1300/Ukwezi</p>
           <p className="line-through text-red-500">2000/Ukwezi</p>
         </div>
-        <FlutterWaveButton {...fwConfig} className="btn" />
-
+        {currentUser.user.paid ? (
+          <p className="text-green-500 text-3xl font-bold flex justify-center items-center gap-3  ">
+            Paid <RiCheckDoubleFill />
+          </p>
+        ) : (
+          <FlutterWaveButton {...fwConfig} className="btn" />
+        )}
         {showModal && (
           <div
             role="alert"
