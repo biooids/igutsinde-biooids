@@ -67,6 +67,20 @@ function HeaderComp() {
               Pricing
             </NavLink>
           </li>
+          {currentUser && currentUser.user.isAdmin ? (
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "text-green-500 font-bold" : ""
+                }
+                to="dash-board"
+              >
+                Dash-Board
+              </NavLink>
+            </li>
+          ) : (
+            ""
+          )}
         </ul>
       </nav>
       {currentUser ? (

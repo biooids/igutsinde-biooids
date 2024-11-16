@@ -14,6 +14,7 @@ import LogIn from "./components/pages/auth/LogIn";
 import SignUp from "./components/pages/auth/SignUp";
 import Pricing from "./components/pages/pay/Pricing";
 import AuthenticatedUser from "./components/mainComp/AuthenticatedUser";
+import DashBoard from "./components/pages/dashBoard/DashBoard";
 
 function App() {
   const router = createBrowserRouter([
@@ -65,6 +66,10 @@ function App() {
             {
               path: "exam/:examId",
               element: <Exam />,
+            },
+            {
+              path: "dash-board",
+              element: <DashBoard />,
             },
           ],
         },
