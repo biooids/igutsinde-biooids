@@ -6,6 +6,10 @@ import Auth from "../models/auth.model";
 import { errorUtil } from "../utils/errorUtil";
 import jwt from "jsonwebtoken";
 
+if (!process.env.FLW_PUBLIC_KEY || !process.env.FLW_SECRET_KEY) {
+  throw new Error("FLW_PUBLIC_KEY and FLW_SECRET_KEY must be defined");
+}
+
 const flw = new Flutterwave(
   process.env.FLW_PUBLIC_KEY,
   process.env.FLW_SECRET_KEY
@@ -44,7 +48,6 @@ export const payWithFlutterWave = async (
 
       if (!updatedUser) {
         next(errorUtil(404, "User not found or not registered."));
-
         return;
       }
 
@@ -81,15 +84,25 @@ export const payWithFlutterWave = async (
         });
     } else {
       next(errorUtil(400, "Payment failed. Please try again."));
+      return;
     }
   } catch (error) {
     next(error);
+    return;
   }
 };
 
-export const cheCkingUserPaidCookie = async (req: Request, res: Response) => {
+export const checkingUserCookie = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (!req.user.paid) {
+    next(errorUtil(400, "User not paid"));
+    return;
+  }
   res.status(200).json({
     success: true,
-    message: "User is already paid",
+    message: "User already paid",
   });
 };

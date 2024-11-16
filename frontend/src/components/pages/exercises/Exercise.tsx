@@ -1,10 +1,37 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { exercisesQuestions } from "../../../assets/questions/exercisesQuestions";
 import { useEffect, useRef, useState } from "react";
 import "./exercises.css";
+import { PiSirenFill } from "react-icons/pi";
 
 function Exercise() {
   const { exerciseId } = useParams();
+  const [userPaid, setUserPaid] = useState(true);
+  const [error, setError] = useState(null);
+
+  const checkingUserCookie = async () => {
+    try {
+      const res = await fetch("/api/payment/cheCkingUserPaidCookie");
+      const data = await res.json();
+
+      if (!data.success && Number(exerciseId) !== 1) {
+        setUserPaid(false);
+        setError(data.message);
+        return;
+      }
+    } catch (error: any) {
+      setError(error.message);
+    }
+  };
+
+  useEffect(() => {
+    checkingUserCookie();
+  }, []);
+
+  if (!exerciseId) {
+    return <div>Error: Exercise ID is required</div>;
+  }
+
   const exerciseData = exercisesQuestions.find(
     (exercise) => exercise.exerciseNumber === Number(exerciseId)
   );
@@ -109,59 +136,86 @@ function Exercise() {
   const progressWidth = ((index + 1) / data.length) * 100 + "%";
 
   return (
-    <div className="min-h-screen quiz-container ">
-      <h1>Quiz App</h1>
-
-      <section className="flex flex-col gap-3 sm:w-[640px] m-auto bg-white bg-opacity-5 p-5 ">
-        {!startQuiz ? (
-          <button className="btn" onClick={() => setStartQuiz(true)}>
-            Start Quiz
-          </button>
-        ) : showResult ? (
-          <>
-            <h2>
-              You scored {score} out of {data.length}
-            </h2>
-            <h3>{feedbackMessage}</h3>
-            <button className="btn" onClick={resetQuiz}>
-              Reset
+    <section className="min-h-screen quiz-container ">
+      {!userPaid ? (
+        <section className="quiz-shadowed-card p-3  rounded-lg flex flex-col gap-3 m-auto max-w-[300px] mt-5 ">
+          <h2 className="text-red-500 text-2xl font-bold flex gap-3  items-center">
+            <PiSirenFill className="animate-pulse" />
+            Alert! Critical error :
+          </h2>
+          <p className="text-red-500">{error}</p>
+          <p>
+            The Data we have about you indicate that you haven't paid. You need
+            to pay to access this quiz. Please{" "}
+            <span>
+              <Link
+                to="/contact"
+                className="text-green-500 underline font-bold"
+              >
+                Contact
+              </Link>
+            </span>{" "}
+            us if you know that you paid.
+          </p>
+          <Link to="/pricing">
+            <button className="btn w-full">Pay</button>
+          </Link>
+        </section>
+      ) : (
+        <section className="quiz-shadowed-card flex flex-col gap-3 sm:w-[640px] m-auto p-5 mt-5 rounded-lg">
+          {!startQuiz ? (
+            <button className="btn" onClick={() => setStartQuiz(true)}>
+              Start Quiz
             </button>
-          </>
-        ) : (
-          <>
-            <div className="progress-bar">
-              <div className="progress" style={{ width: progressWidth }}></div>
-            </div>
-            <h2>
-              {index + 1}. {currentQuestion.question}
-            </h2>
-            <button className="btn" onClick={() => setShowHint(!showHint)}>
-              Show Hint
-            </button>
-            {showHint && <p className="hint">{currentQuestion.hint}</p>}
-            <ul>
-              {currentQuestion.options.map((option, i) => (
-                <li
-                  className="bg-blue-950 p-3 rounded-lg cursor-pointer"
-                  key={i}
-                  ref={(el) => (optionRefs.current[i] = el)}
-                  onClick={() => checkAns(i)}
-                >
-                  {option}
-                </li>
-              ))}
-            </ul>
-            <div className="timer">Time left: {timer} seconds</div>
-            <button className="btn" onClick={nextQuestion}>
-              Next
-            </button>
-            <div className="index">
-              {index + 1} of {data.length} questions
-            </div>
-          </>
-        )}
-      </section>
-    </div>
+          ) : showResult ? (
+            <>
+              <h2>
+                You scored {score} out of {data.length}
+              </h2>
+              <h3>{feedbackMessage}</h3>
+              <button className="btn" onClick={resetQuiz}>
+                Reset
+              </button>
+            </>
+          ) : (
+            <>
+              <div className="progress-bar">
+                <div
+                  className="progress"
+                  style={{ width: progressWidth }}
+                ></div>
+              </div>
+              <h2>
+                {index + 1}. {currentQuestion.question}
+              </h2>
+              <button className="btn" onClick={() => setShowHint(!showHint)}>
+                Show Hint
+              </button>
+              {showHint && <p className="hint">{currentQuestion.hint}</p>}
+              <ul>
+                {currentQuestion.options.map((option, i) => (
+                  <li
+                    className="bg-blue-950 p-3 rounded-lg cursor-pointer"
+                    key={i}
+                    ref={(el) => (optionRefs.current[i] = el)}
+                    onClick={() => checkAns(i)}
+                  >
+                    {option}
+                  </li>
+                ))}
+              </ul>
+              <div className="timer">Time left: {timer} seconds</div>
+              <button className="btn" onClick={nextQuestion}>
+                Next
+              </button>
+              <div className="index">
+                {index + 1} of {data.length} questions
+              </div>
+            </>
+          )}
+        </section>
+      )}
+    </section>
   );
 }
 

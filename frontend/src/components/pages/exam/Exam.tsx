@@ -1,10 +1,34 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { examQuestions } from "../../../assets/questions/examQuestions";
 import { useEffect, useRef, useState } from "react";
 import "./exam.css";
+import { PiSirenFill } from "react-icons/pi";
 
 function Exam() {
   const { examId } = useParams();
+
+  const [userPaid, setUserPaid] = useState(true);
+  const [error, setError] = useState(null);
+
+  const checkingUserCookie = async () => {
+    try {
+      const res = await fetch("/api/payment/cheCkingUserPaidCookie");
+      const data = await res.json();
+
+      if (!data.success && Number(examId) !== 1) {
+        setUserPaid(false);
+        setError(data.message);
+        return;
+      }
+    } catch (error: any) {
+      setError(error.message);
+    }
+  };
+
+  useEffect(() => {
+    checkingUserCookie();
+  }, []);
+
   const examData = examQuestions.find(
     (exam) => exam.examNumber === Number(examId)
   );
@@ -85,40 +109,63 @@ function Exam() {
 
   return (
     <div className="exam-container min-h-screen">
-      <h1>Exam {examId}</h1>
-
-      <section className="flex flex-col gap-3 sm:w-[640px] m-auto  bg-white bg-opacity-5 p-5 rounded-lg">
-        {!startQuiz ? (
-          <button className="btn" onClick={() => setStartQuiz(true)}>
-            Start Exam
-          </button>
-        ) : (
-          <>
-            {showResult && (
-              <div className="result-section">
-                <h2>
-                  You scored {score} out of {data.length}
-                </h2>
-                <h3>{feedbackMessage}</h3>
-              </div>
-            )}
-            <div className="timer">Time left: {timer} seconds</div>
-            {data.map((question, questionIndex) => (
-              <div key={questionIndex} className="flex flex-col gap-3">
-                <h2>
-                  {questionIndex + 1}. {question.question}
-                </h2>
-                <ul className="flex flex-col gap-1">
-                  {question.options.map((option, optionIndex) => (
-                    <li
-                      key={optionIndex}
-                      ref={(el) => {
-                        if (!optionRefs.current[questionIndex]) {
-                          optionRefs.current[questionIndex] = [];
-                        }
-                        optionRefs.current[questionIndex][optionIndex] = el;
-                      }}
-                      className={`
+      {!userPaid ? (
+        <section className="exam-shadowed-card p-3  rounded-lg flex flex-col gap-3 m-auto max-w-[300px] mt-5 ">
+          <h2 className="text-red-500 text-2xl font-bold flex gap-3  items-center">
+            <PiSirenFill className="animate-pulse" />
+            Alert! Critical error :
+          </h2>
+          <p className="text-red-500">{error}</p>
+          <p>
+            The Data we have about you indicate that you haven't paid. You need
+            to pay to access this Exam. Please{" "}
+            <span>
+              <Link
+                to="/contact"
+                className="text-green-500 underline font-bold"
+              >
+                Contact
+              </Link>
+            </span>{" "}
+            us if you know that you paid.
+          </p>
+          <Link to="/pricing">
+            <button className="btn w-full">Pay</button>
+          </Link>
+        </section>
+      ) : (
+        <section className="exam-shadowed-card mt-5 flex flex-col gap-3 sm:w-[640px] m-auto  p-5 rounded-lg">
+          {!startQuiz ? (
+            <button className="btn" onClick={() => setStartQuiz(true)}>
+              Start Exam
+            </button>
+          ) : (
+            <>
+              {showResult && (
+                <div className="result-section">
+                  <h2>
+                    You scored {score} out of {data.length}
+                  </h2>
+                  <h3>{feedbackMessage}</h3>
+                </div>
+              )}
+              <div className="timer">Time left: {timer} seconds</div>
+              {data.map((question, questionIndex) => (
+                <div key={questionIndex} className="flex flex-col gap-3">
+                  <h2>
+                    {questionIndex + 1}. {question.question}
+                  </h2>
+                  <ul className="flex flex-col gap-1">
+                    {question.options.map((option, optionIndex) => (
+                      <li
+                        key={optionIndex}
+                        ref={(el) => {
+                          if (!optionRefs.current[questionIndex]) {
+                            optionRefs.current[questionIndex] = [];
+                          }
+                          optionRefs.current[questionIndex][optionIndex] = el;
+                        }}
+                        className={`
                         rounded-lg
                         ${
                           selectedAnswers[questionIndex] === optionIndex
@@ -126,25 +173,26 @@ function Exam() {
                             : ""
                         }
                       `}
-                      onClick={() =>
-                        handleSelectAnswer(questionIndex, optionIndex)
-                      }
-                    >
-                      {option}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-            <button
-              className="btn"
-              onClick={showResult ? handleReset : handleSubmit}
-            >
-              {showResult ? "Reset Quiz" : "Submit"}
-            </button>
-          </>
-        )}
-      </section>
+                        onClick={() =>
+                          handleSelectAnswer(questionIndex, optionIndex)
+                        }
+                      >
+                        {option}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              <button
+                className="btn"
+                onClick={showResult ? handleReset : handleSubmit}
+              >
+                {showResult ? "Reset Quiz" : "Submit"}
+              </button>
+            </>
+          )}
+        </section>
+      )}
     </div>
   );
 }
