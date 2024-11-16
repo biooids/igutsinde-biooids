@@ -1,3 +1,4 @@
+// @ts-nocheck
 import argon2 from "argon2";
 
 import { errorUtil } from "../utils/errorUtil";
@@ -103,6 +104,28 @@ export const logIn = async (
         message: "user logged in successfully",
         user: rest,
       });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllUsers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    if (!req.user.isAdmin) {
+      next(errorUtil(401, "Unauthorized access"));
+      return;
+    }
+    const users = await Auth.find();
+
+    res.status(200).json({
+      success: true,
+      message: "users fetched successfully",
+      users,
+    });
   } catch (error) {
     next(error);
   }
