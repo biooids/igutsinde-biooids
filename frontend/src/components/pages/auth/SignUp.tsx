@@ -121,7 +121,7 @@ function SignUp() {
 
           <div className="mt-3">
             <button type="submit" className="btn w-full">
-              {loading ? "Loading..." : "Funguza Konti"}
+              {loading ? "Loading..." : "Injira"}
             </button>
           </div>
         </form>

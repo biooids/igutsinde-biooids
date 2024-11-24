@@ -15,6 +15,7 @@ import SignUp from "./components/pages/auth/SignUp";
 import Pricing from "./components/pages/pay/Pricing";
 import AuthenticatedUser from "./components/mainComp/AuthenticatedUser";
 import DashBoard from "./components/pages/dashBoard/DashBoard";
+import Ibyapa from "./components/pages/reading/Ibyapa";
 
 function App() {
   const router = createBrowserRouter([
@@ -70,6 +71,10 @@ function App() {
             {
               path: "dash-board",
               element: <DashBoard />,
+            },
+            {
+              path: "ibyapa",
+              element: <Ibyapa />,
             },
           ],
         },

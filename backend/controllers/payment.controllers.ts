@@ -68,13 +68,12 @@ export const payWithFlutterWave = async (
         { expiresIn: "365d" }
       );
 
-      // Send success response
       res
         .status(200)
         .cookie("access_token", token, {
           httpOnly: true,
           secure: true,
-          maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year
+          maxAge: 1000 * 60 * 60 * 24 * 365,
         })
         .json({
           success: true,

@@ -17,7 +17,7 @@ function Pricing() {
   const config = {
     public_key: "FLWPUBK_TEST-9e84acc10c215760d7577ab2b2c8274a-X",
     tx_ref: Date.now(),
-    amount: 1300,
+    amount: 1500,
     currency: "RWF",
     payment_options: "card,mobilemoney,ussd",
     customer: {
@@ -98,13 +98,13 @@ function Pricing() {
           <h3 className="text-3xl font-bold">Uburyo 1,</h3>
           <p>
             Kanda ahakurikira maze w'ishyure, twashyize ku{" "}
-            <span className="font-bold text-green-500">1300 Rwf.</span> Ufite
+            <span className="font-bold text-green-500">1500 Rwf.</span> Ufite
             ikibazo twandikire kuri{" "}
-            <span className="font-bold text-green-500">WhatsApp</span>{" "}
+            <span className="font-bold text-green-500">WhatsApp : </span>{" "}
             <span className="font-bold text-green-500">0790931024.</span>
           </p>
           <div className="flex text-xl  gap-3">
-            <p>1300/Ukwezi</p>
+            <p>1500/Ukwezi</p>
             <p className="line-through text-red-500">2000/Ukwezi</p>
           </div>
           {currentUser.user.paid ? (
@@ -155,13 +155,23 @@ function Pricing() {
         <div className="pay-card p-3 rounded-lg w-[300px] flex flex-col gap-5 ">
           <h3 className="text-3xl font-bold">Uburyo 2,</h3>
           <p>
-            Wishyure kuri iyi code maze utwandikire kuri WhatsApp : 0790931024
+            Wishyure kuri iyi code maze utwandikire kuri{" "}
+            <span className="font-bold text-green-500">
+              WhatsApp : 0790931024{" "}
+            </span>
             utumenyeshe, maze tugushyire muri sisiteme yabishyuye.
           </p>
           <div className="flex text-xl  gap-3">
-            <p>1300/Ukwezi</p>
+            <p>1500/Ukwezi</p>
             <p className="line-through text-red-500">2000/Ukwezi</p>
           </div>
+          {currentUser.user.paid ? (
+            <p className="text-green-500 text-3xl font-bold flex justify-center items-center gap-3  ">
+              Paid <RiCheckDoubleFill />
+            </p>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </section>

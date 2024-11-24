@@ -39,7 +39,8 @@ export const signUp = async (
         isAdmin: savedUser.isAdmin,
         paid: savedUser.paid,
       },
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET,
+      { expiresIn: "360d" }
     );
 
     res
@@ -47,6 +48,7 @@ export const signUp = async (
       .cookie("access_token", token, {
         httpOnly: true,
         secure: true,
+        maxAge: 365 * 24 * 60 * 60 * 1000,
       })
       .json({
         success: true,
@@ -91,13 +93,15 @@ export const logIn = async (
         isAdmin: user.isAdmin,
         paid: user.paid,
       },
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET,
+      { expiresIn: "360d" }
     );
     res
       .status(200)
       .cookie("access_token", token, {
         httpOnly: true,
         secure: true,
+        maxAge: 365 * 24 * 60 * 60 * 1000,
       })
       .json({
         success: true,
@@ -128,5 +132,26 @@ export const getAllUsers = async (
     });
   } catch (error) {
     next(error);
+  }
+};
+
+export const logOut = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res
+      .status(200)
+      .clearCookie("access_token", {
+        httpOnly: true,
+        secure: true,
+      })
+      .json({
+        success: true,
+        message: "User logged out successfully",
+      });
+  } catch (error) {
+    next(errorUtil(500, "An error occurred during logout"));
   }
 };

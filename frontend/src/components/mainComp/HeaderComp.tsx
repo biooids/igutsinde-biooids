@@ -10,6 +10,7 @@ import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../../app/theme/themeSlice";
 import { AppDispatch, RootState } from "../../app/store";
+import LogOut from "../pages/auth/LogOut";
 
 function HeaderComp() {
   const dispatch = useDispatch<AppDispatch>();
@@ -108,6 +109,8 @@ function HeaderComp() {
       >
         {theme === "light" ? <FaSun /> : <FaRegMoon />}
       </span>
+
+      <LogOut />
 
       <div className=" drawer-end sm:hidden">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />

@@ -58,33 +58,36 @@ function HomePage() {
         <div className="home-card flex flex-col gap-3 rounded-lg">
           <h2 className="text-2xl font-bold text-green-500">Inkoranya </h2>
           <div className="flex flex-wrap gap-3">
-            <div className="bg-black p-1 rounded-lg ">
-              <div className="h-[80px] w-[80px]">
-                <img src={ibyapa} alt="" className="h-full w-full " />
+            <Link to="ibyapa">
+              <div className="bg-black p-1 rounded-lg ">
+                <div className="h-[80px] w-[80px]">
+                  <img src={ibyapa} alt="" className="h-full w-full " />
+                </div>
+                <p className="text-center">Ibyapa</p>
               </div>
-              <p className="text-center">Ibyapa</p>
-            </div>
-            <div className="bg-black p-1 rounded-lg">
-              <div className="h-[80px] w-[80px]">
-                <img
-                  src={irembo}
-                  alt=""
-                  className="h-full w-full p-1 rounded-lg"
-                />
+            </Link>
+
+            <a
+              href="https://irembo.gov.rw/"
+              target="_blank"
+              className="text-center"
+            >
+              <div className="bg-black p-1 rounded-lg">
+                <div className="h-[80px] w-[80px]">
+                  <img
+                    src={irembo}
+                    alt=""
+                    className="h-full w-full p-1 rounded-lg"
+                  />
+                </div>
+                <p className="text-center">Irembo</p>
               </div>
-              <p className="text-center">Irembo</p>
-            </div>
+            </a>
             <div className="bg-black p-1 rounded-lg">
               <div className="h-[80px] w-[80px]">
                 <img src={igazeti} alt="" className="h-full w-full " />
               </div>
               <p className="text-center">Igazeti</p>
-            </div>
-            <div className="bg-black p-1 rounded-lg">
-              <div className="h-[80px] w-[80px]">
-                <img src={igazeti} alt="" className="h-full w-full " />
-              </div>
-              <p className="text-center">Ibyapa</p>
             </div>
           </div>
         </div>

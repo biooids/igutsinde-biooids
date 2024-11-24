@@ -47,7 +47,7 @@ function Exercise() {
   const [score, setScore] = useState(0);
   const [lock, setLock] = useState(false);
   const [showResult, setShowResult] = useState(false);
-  const [timer, setTimer] = useState(30);
+  const [timer, setTimer] = useState(60);
   const [startQuiz, setStartQuiz] = useState(false);
   const [showHint, setShowHint] = useState(false);
 
@@ -98,7 +98,7 @@ function Exercise() {
     if (lock) {
       if (index < data.length - 1) {
         setIndex(index + 1);
-        setTimer(30);
+        setTimer(60);
         setShowHint(false);
       } else {
         setShowResult(true);
@@ -118,7 +118,7 @@ function Exercise() {
     setIndex(0);
     setScore(0);
     setShowResult(false);
-    setTimer(30);
+    setTimer(60);
     setStartQuiz(false);
     setShowHint(false);
     resetOptions();
@@ -164,9 +164,24 @@ function Exercise() {
       ) : (
         <section className="quiz-shadowed-card flex flex-col gap-3 sm:w-[640px] m-auto p-5 mt-5 rounded-lg">
           {!startQuiz ? (
-            <button className="btn" onClick={() => setStartQuiz(true)}>
-              Start Quiz
-            </button>
+            <div className="flex flex-col gap-3 w-full">
+              <p>
+                Imyitozo uyikora ukanze kuri "kora Imyitozo" aho uhitamo
+                umwitozo 1, 2 &#x221D; 3, bitewe naho wagejeje wimenyereza. Buri
+                kibazo ugikora mumasegonda 60 sec, iyo arangiye utarahitamo
+                kirasubizwa mwibara{" "}
+                <span className="bg-green-500 h-3 w-3 inline-block"></span>.
+                Utsinzwe nikibazo birangwa nibara{" "}
+                <span className="bg-red-500 h-3 w-3 inline-block"></span> ndetse
+                nibara{" "}
+                <span className="bg-green-500 h-3 w-3 inline-block"></span>{" "}
+                rikosora ikibazo, wasoza ibibazo 20 ukanda kuri submit ukabona
+                amanota.
+              </p>
+              <button className="btn" onClick={() => setStartQuiz(true)}>
+                kora Imyitozo
+              </button>
+            </div>
           ) : showResult ? (
             <>
               <h2>
@@ -188,14 +203,14 @@ function Exercise() {
               <h2>
                 {index + 1}. {currentQuestion.question}
               </h2>
-              <button className="btn" onClick={() => setShowHint(!showHint)}>
+              {/* <button className="btn" onClick={() => setShowHint(!showHint)}>
                 Show Hint
               </button>
-              {showHint && <p className="hint">{currentQuestion.hint}</p>}
-              <ul>
+              {showHint && <p className="hint">{currentQuestion.hint}</p>} */}
+              <ul className="text-white">
                 {currentQuestion.options.map((option, i) => (
                   <li
-                    className="bg-blue-950 p-3 rounded-lg cursor-pointer"
+                    className="bg-black bg-opacity-50 p-3 rounded-lg cursor-pointer"
                     key={i}
                     ref={(el) => (optionRefs.current[i] = el)}
                     onClick={() => checkAns(i)}

@@ -107,6 +107,14 @@ function Exam() {
       ? "Good!"
       : "You should study.";
 
+  const formatTime = (timeInSeconds: number) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+    return `${minutes.toString().padStart(2, "0")}:${seconds
+      .toString()
+      .padStart(2, "0")}`;
+  };
+
   return (
     <div className="exam-container min-h-screen">
       {!userPaid ? (
@@ -136,26 +144,41 @@ function Exam() {
       ) : (
         <section className="exam-shadowed-card mt-5 flex flex-col gap-3 sm:w-[640px] m-auto  p-5 rounded-lg">
           {!startQuiz ? (
-            <button className="btn" onClick={() => setStartQuiz(true)}>
-              Start Exam
-            </button>
+            <div className="flex flex-col gap-3">
+              <p>
+                Ikizami ugikora ukanze kuri "kora Ikizami" aho uhitamo Ikizami
+                1, 2 &#x221D; 3, bitewe naho wagejeje wimenyereza. Buri kizami
+                kikorwa 20 min, iyo arangiye utaragisoza uhita werekwa amanota
+                wagize kuri 20. Utsinzwe n'Ikizami birangwa nijambo.
+                <span className="text-red-500"> Failed</span> watsinda
+                bikarangwa nijambo
+                <span className="text-green-500"> Pass</span> noneho ugahita
+                werekwa nuko byari gusubizwa 1-20
+              </p>
+              <button className="btn" onClick={() => setStartQuiz(true)}>
+                kora Ikizami
+              </button>
+            </div>
           ) : (
-            <>
-              {showResult && (
-                <div className="result-section">
-                  <h2>
-                    You scored {score} out of {data.length}
-                  </h2>
-                  <h3>{feedbackMessage}</h3>
-                </div>
-              )}
-              <div className="timer">Time left: {timer} seconds</div>
+            <section className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3  bg-white bg-opacity-5 backdrop-blur-lg p-5 rounded-lg sticky top-0">
+                {showResult && (
+                  <div className="result-section">
+                    <h2 className="text-xl font-bold">
+                      Wabonye {score} kuri {data.length}
+                    </h2>
+                    <h3>Comment : {feedbackMessage}</h3>
+                  </div>
+                )}
+                <div className="timer">Time left: {formatTime(timer)}</div>
+              </div>
+
               {data.map((question, questionIndex) => (
                 <div key={questionIndex} className="flex flex-col gap-3">
                   <h2>
                     {questionIndex + 1}. {question.question}
                   </h2>
-                  <ul className="flex flex-col gap-1">
+                  <ul className="flex flex-col gap-1 text-white ">
                     {question.options.map((option, optionIndex) => (
                       <li
                         key={optionIndex}
@@ -167,7 +190,8 @@ function Exam() {
                         }}
                         className={`
                         rounded-lg
-                        ${
+                        bg-black
+                        bg-opacity-50                        ${
                           selectedAnswers[questionIndex] === optionIndex
                             ? "selected"
                             : ""
@@ -183,13 +207,16 @@ function Exam() {
                   </ul>
                 </div>
               ))}
-              <button
-                className="btn"
-                onClick={showResult ? handleReset : handleSubmit}
-              >
-                {showResult ? "Reset Quiz" : "Submit"}
-              </button>
-            </>
+              <div className="flex  flex-col gap-3">
+                <p>Niba warangije :</p>
+                <button
+                  className="btn"
+                  onClick={showResult ? handleReset : handleSubmit}
+                >
+                  {showResult ? "Tangira bushyashya" : "Submit"}
+                </button>
+              </div>
+            </section>
           )}
         </section>
       )}
