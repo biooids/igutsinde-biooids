@@ -1,48 +1,23 @@
 import { Link, useParams } from "react-router-dom";
 import { exercisesQuestions } from "../../../assets/questions/exercisesQuestions";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./exercises.css";
 import { PiSirenFill } from "react-icons/pi";
 
+type Question = {
+  question: string;
+  options: string[];
+  ans: number;
+  hint?: string;
+};
+
 function Exercise() {
   const { exerciseId } = useParams();
+
+  // Hooks must be declared at the top level
   const [userPaid, setUserPaid] = useState(true);
-  const [error, setError] = useState(null);
-
-  const checkingUserCookie = async () => {
-    try {
-      const res = await fetch("/api/payment/cheCkingUserPaidCookie");
-      const data = await res.json();
-
-      if (!data.success && Number(exerciseId) !== 1) {
-        setUserPaid(false);
-        setError(data.message);
-        return;
-      }
-    } catch (error: any) {
-      setError(error.message);
-    }
-  };
-
-  useEffect(() => {
-    checkingUserCookie();
-  }, []);
-
-  if (!exerciseId) {
-    return <div>Error: Exercise ID is required</div>;
-  }
-
-  const exerciseData = exercisesQuestions.find(
-    (exercise) => exercise.exerciseNumber === Number(exerciseId)
-  );
-
-  if (!exerciseData) {
-    return (
-      <div>Exercise not found for {exerciseId || "no parameter passed"}</div>
-    );
-  }
-
-  const [data] = useState(exerciseData.data);
+  const [error, setError] = useState<string | null>(null);
+  const [data, setData] = useState<Question[]>([]);
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [lock, setLock] = useState(false);
@@ -53,7 +28,42 @@ function Exercise() {
 
   const optionRefs = useRef<(HTMLLIElement | null)[]>([]);
 
-  const currentQuestion = data[index];
+  // Check for exercise data early
+  const exerciseData = exercisesQuestions.find(
+    (exercise) => exercise.exerciseNumber === Number(exerciseId)
+  );
+
+  const checkingUserCookie = useCallback(async () => {
+    try {
+      const res = await fetch("/api/payment/cheCkingUserPaidCookie");
+      const data = await res.json();
+
+      if (!data.success && Number(exerciseId) !== 1) {
+        setUserPaid(false);
+        setError(data.message);
+      }
+    } catch (err) {
+      if (err instanceof Error) setError(err.message);
+    }
+  }, [exerciseId]);
+
+  useEffect(() => {
+    checkingUserCookie();
+  }, [checkingUserCookie]);
+
+  useEffect(() => {
+    if (exerciseData) {
+      setData(exerciseData.data);
+    }
+  }, [exerciseData]);
+
+  const revealCorrectAnswer = useCallback(() => {
+    if (!lock) {
+      const question = data[index]; // Dynamically derive the current question
+      optionRefs.current[question.ans]?.classList.add("correct");
+      setLock(true);
+    }
+  }, [lock, index, data]);
 
   useEffect(() => {
     if (!startQuiz || lock) return;
@@ -69,24 +79,17 @@ function Exercise() {
     }, 1000);
 
     return () => clearInterval(countdown);
-  }, [index, lock, startQuiz]);
-
-  const revealCorrectAnswer = () => {
-    if (!lock) {
-      optionRefs.current[currentQuestion.ans]?.classList.add("correct");
-      setLock(true);
-    }
-  };
+  }, [index, lock, startQuiz, revealCorrectAnswer]);
 
   const checkAns = (selectedOption: number) => {
     if (!lock) {
-      const isCorrect = currentQuestion.ans === selectedOption;
+      const isCorrect = data[index].ans === selectedOption;
       optionRefs.current[selectedOption]?.classList.add(
         isCorrect ? "correct" : "wrong"
       );
 
       if (!isCorrect) {
-        optionRefs.current[currentQuestion.ans]?.classList.add("correct");
+        optionRefs.current[data[index].ans]?.classList.add("correct");
       }
 
       setScore((prevScore) => (isCorrect ? prevScore + 1 : prevScore));
@@ -135,53 +138,50 @@ function Exercise() {
 
   const progressWidth = ((index + 1) / data.length) * 100 + "%";
 
+  // Handle conditional rendering
+  if (!exerciseId) {
+    return <div>Error: Exercise ID is required</div>;
+  }
+
+  if (!exerciseData) {
+    return (
+      <div>Exercise not found for {exerciseId || "no parameter passed"}</div>
+    );
+  }
+
   return (
-    <section className="min-h-screen quiz-container ">
+    <section className="min-h-screen quiz-container">
       {!userPaid ? (
-        <section className="quiz-shadowed-card p-3  rounded-lg flex flex-col gap-3 m-auto max-w-[300px] mt-5 ">
-          <h2 className="text-red-500 text-2xl font-bold flex gap-3  items-center">
+        <section className="quiz-shadowed-card p-3 rounded-lg flex flex-col gap-3 m-auto max-w-[300px] mt-5">
+          <h2 className="text-red-500 text-2xl font-bold flex gap-3 items-center">
             <PiSirenFill className="animate-pulse" />
-            Alert! Critical error :
+            Alert! Critical error:
           </h2>
           <p className="text-red-500">{error}</p>
           <p>
-            The Data we have about you indicate that you haven't paid. You need
-            to pay to access this quiz. Please{" "}
-            <span>
-              <Link
-                to="/contact"
-                className="text-green-500 underline font-bold"
-              >
-                Contact
-              </Link>
-            </span>{" "}
-            us if you know that you paid.
+            You haven’t paid. Please{" "}
+            <Link to="/contact" className="text-green-500 underline font-bold">
+              Contact
+            </Link>{" "}
+            us or{" "}
+            <Link to="/pricing" className="text-green-500 underline font-bold">
+              Pay
+            </Link>{" "}
+            to access this quiz.
           </p>
-          <Link to="/pricing">
-            <button className="btn w-full">Pay</button>
-          </Link>
         </section>
       ) : (
         <section className="quiz-shadowed-card flex flex-col gap-3 sm:w-[640px] m-auto p-5 mt-5 rounded-lg">
           {!startQuiz ? (
-            <div className="flex flex-col gap-3 w-full">
+            <>
               <p>
-                Imyitozo uyikora ukanze kuri "kora Imyitozo" aho uhitamo
-                umwitozo 1, 2 &#x221D; 3, bitewe naho wagejeje wimenyereza. Buri
-                kibazo ugikora mumasegonda 60 sec, iyo arangiye utarahitamo
-                kirasubizwa mwibara{" "}
-                <span className="bg-green-500 h-3 w-3 inline-block"></span>.
-                Utsinzwe nikibazo birangwa nibara{" "}
-                <span className="bg-red-500 h-3 w-3 inline-block"></span> ndetse
-                nibara{" "}
-                <span className="bg-green-500 h-3 w-3 inline-block"></span>{" "}
-                rikosora ikibazo, wasoza ibibazo 20 ukanda kuri submit ukabona
-                amanota.
+                Start the quiz by clicking the button below. Each question has a
+                60-second time limit. Good luck!
               </p>
               <button className="btn" onClick={() => setStartQuiz(true)}>
-                kora Imyitozo
+                Start Quiz
               </button>
-            </div>
+            </>
           ) : showResult ? (
             <>
               <h2>
@@ -201,18 +201,18 @@ function Exercise() {
                 ></div>
               </div>
               <h2>
-                {index + 1}. {currentQuestion.question}
+                {index + 1}. {data[index].question}
               </h2>
               <button className="btn" onClick={() => setShowHint(!showHint)}>
                 Show Hint
               </button>
-              {showHint && <p className="hint">{currentQuestion.hint}</p>}
+              {showHint && <p className="hint">{data[index].hint}</p>}
               <ul className="text-white">
-                {currentQuestion.options.map((option, i) => (
+                {data[index].options.map((option, i) => (
                   <li
-                    className="bg-black bg-opacity-50 p-3 rounded-lg cursor-pointer"
                     key={i}
                     ref={(el) => (optionRefs.current[i] = el)}
+                    className="bg-black bg-opacity-50 p-3 rounded-lg cursor-pointer"
                     onClick={() => checkAns(i)}
                   >
                     {option}
