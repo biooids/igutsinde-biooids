@@ -22,7 +22,7 @@ function Pricing() {
     payment_options: "card,mobilemoney,ussd",
     customer: {
       email: `${currentUser.user.userName}@gmail.com` || "user@gmail.com",
-      phone_number: "250",
+      phone_number: "25",
       name: `${currentUser ? currentUser.user.userName : ""}`,
     },
     customizations: {
