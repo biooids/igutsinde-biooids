@@ -27,7 +27,7 @@ export const payWithFlutterWave = async (
     const paymentPayload = {
       tx_ref: req.body.tx_ref || "MC-158523s09v5050e8",
       order_id: req.body.order_id || "USS_URG_893982923s2323",
-      amount: req.body.amount || "1300",
+      amount: req.body.amount || "1500",
       currency: req.body.currency || "RWF",
       email: req.body.email,
       phone_number: req.body.phone_number,

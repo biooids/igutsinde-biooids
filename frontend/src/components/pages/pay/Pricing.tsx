@@ -109,7 +109,7 @@ function Pricing() {
           </div>
           {currentUser.user.paid ? (
             <p className="text-green-500 text-3xl font-bold flex justify-center items-center gap-3  ">
-              Paid <RiCheckDoubleFill />
+              Warishyuye <RiCheckDoubleFill />
             </p>
           ) : (
             <FlutterWaveButton {...fwConfig} className="btn" />
@@ -167,7 +167,7 @@ function Pricing() {
           </div>
           {currentUser.user.paid ? (
             <p className="text-green-500 text-3xl font-bold flex justify-center items-center gap-3  ">
-              Paid <RiCheckDoubleFill />
+              Warishyuye <RiCheckDoubleFill />
             </p>
           ) : (
             ""
