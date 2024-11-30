@@ -15,7 +15,7 @@ function Pricing() {
   const [error, setError] = useState(null);
 
   const config = {
-    public_key: "FLWPUBK_TEST-9e84acc10c215760d7577ab2b2c8274a-X",
+    public_key: "FLWPUBK-0b07fb53c46a83c5d1432daf1101971b-X",
     tx_ref: Date.now(),
     amount: 1500,
     currency: "RWF",
