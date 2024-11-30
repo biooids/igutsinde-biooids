@@ -33,7 +33,6 @@ function Pricing() {
   };
 
   const handleFlutterWavePayment = async (payload) => {
-    console.log("data for req body", payload);
     try {
       setError(null);
       setShowModal(false);
@@ -55,7 +54,6 @@ function Pricing() {
         return;
       }
     } catch (error) {
-      console.log(error);
       setError(error.message);
       setShowModal(true);
       return;
@@ -67,7 +65,6 @@ function Pricing() {
     text: "Pay with Flutterwave!",
     callback: (response) => {
       if (response.status === "successful") {
-        console.log(response);
         handleFlutterWavePayment({
           tx_ref: `${response.tx_ref}`,
           order_id: `${response.transaction_id}`,
@@ -79,7 +76,6 @@ function Pricing() {
           id: currentUser.user._id,
         });
       } else {
-        console.log(response.status);
         setError(response.status);
         setShowModal(true);
       }

@@ -11,7 +11,6 @@ export const signUp = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log("data from req", req.body);
   const { userName, phone, password } = req.body;
 
   try {

@@ -20,7 +20,6 @@ function LogOut() {
       if (!data.success) {
         dispatch(actionFailure(data.message));
       } else {
-        console.log(data);
         dispatch(actionSuccess(""));
       }
     } catch (error) {

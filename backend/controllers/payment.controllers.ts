@@ -21,8 +21,6 @@ export const payWithFlutterWave = async (
   next: NextFunction
 ) => {
   try {
-    console.log("Data from body:", req.body);
-
     // Extract required payment data from request
     const paymentPayload = {
       tx_ref: req.body.tx_ref || "MC-158523s09v5050e8",
@@ -36,7 +34,6 @@ export const payWithFlutterWave = async (
 
     // Call Flutterwave API with validated payment payload
     const response = await flw.MobileMoney.rwanda(paymentPayload);
-    console.log("Flutterwave Response:", response);
 
     if (response.status === "success") {
       // Get the current date in ISO format
