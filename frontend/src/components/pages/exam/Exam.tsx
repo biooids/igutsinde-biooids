@@ -103,10 +103,10 @@ function Exam() {
 
   const feedbackMessage =
     scorePercentage === 100
-      ? "Very smart!"
-      : scorePercentage >= 50
-      ? "Good!"
-      : "You should study.";
+      ? "Passed and proficient!"
+      : scorePercentage >= 60
+      ? "Passed!"
+      : "Failed!. Komeza ukore imyitozo unasome igazeti n'ibyapa";
 
   const formatTime = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);
@@ -161,7 +161,7 @@ function Exam() {
                 werekwa nuko byari gusubizwa 1-20.
               </p>
               <button className="btn" onClick={() => setStartQuiz(true)}>
-                kora Ikizami
+                Tangira iki kizamini
               </button>
             </div>
           ) : (
@@ -169,13 +169,13 @@ function Exam() {
               <div className="flex flex-col gap-3 bg-white bg-opacity-5 backdrop-blur-lg p-5 rounded-lg sticky top-0">
                 {showResult && (
                   <div className="result-section">
-                    <h2 className="text-xl font-bold">
-                      Wabonye {score} kuri {data.length}
+                    <h2 className="text-3xl font-bold">
+                      Wabonye {score}/{data.length}
                     </h2>
                     <h3>Comment: {feedbackMessage}</h3>
                   </div>
                 )}
-                <div className="timer">Time left: {formatTime(timer)}</div>
+                <div className="timer">Igihe gisigaye: {formatTime(timer)}</div>
               </div>
 
               {data.map((question, questionIndex) => (

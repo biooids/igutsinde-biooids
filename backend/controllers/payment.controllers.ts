@@ -39,10 +39,16 @@ export const payWithFlutterWave = async (
     console.log("Flutterwave Response:", response);
 
     if (response.status === "success") {
+      // Get the current date in ISO format
+      const currentDate = new Date().toISOString();
+
       // Update user record using the id
       const updatedUser = await Auth.findOneAndUpdate(
         { _id: req.body.id }, // Safely use id here
-        { paid: true },
+        {
+          paid: true,
+          datePaid: currentDate, // Set the datePaid field
+        },
         { new: true }
       );
 

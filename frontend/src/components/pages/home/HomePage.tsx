@@ -88,6 +88,7 @@ function HomePage() {
                 <img src={igazeti} alt="" className="h-full w-full " />
               </div>
               <p className="text-center">Igazeti</p>
+              <p className="text-red-500">ntago iraza</p>
             </div>
           </div>
         </div>

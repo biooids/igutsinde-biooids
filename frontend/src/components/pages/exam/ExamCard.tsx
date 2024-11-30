@@ -24,11 +24,11 @@ function ExamCard({ examNumber }: ExamCardProps) {
       </p>
       {(currentUser && currentUser.user.paid) || examNumber === 1 ? (
         <Link to={`/exam/${examNumber}`}>
-          <button className="btn w-full">Tangira</button>
+          <button className="btn w-full">Kora iki kizamini</button>
         </Link>
       ) : (
         <Link to="/pricing">
-          <button className="btn w-full">Tangira</button>
+          <button className="btn w-full">Kora iki kizamini</button>
         </Link>
       )}
     </div>

@@ -23,6 +23,10 @@ const authSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    datePaid: {
+      type: String,
+      default: "",
+    },
     profilePic: {
       type: String,
       default:

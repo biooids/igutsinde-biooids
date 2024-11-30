@@ -131,10 +131,10 @@ function Exercise() {
 
   const feedbackMessage =
     scorePercentage === 100
-      ? "Very smart!"
-      : scorePercentage >= 50
-      ? "Good!"
-      : "You should study.";
+      ? "Passed and Proficient!"
+      : scorePercentage >= 60
+      ? "Passed!"
+      : "Failed!. Watsinzwe komeza ukore imyitozo unasome igazeti n'ibyapa";
 
   const progressWidth = ((index + 1) / data.length) * 100 + "%";
 
@@ -175,17 +175,26 @@ function Exercise() {
           {!startQuiz ? (
             <>
               <p>
-                Start the quiz by clicking the button below. Each question has a
-                60-second time limit. Good luck!
+                Imyitozo uyikora ukanze kuri "kora Imyitozo" aho uhitamo
+                umwitozo 1, 2 &#x221D; 3, bitewe naho wagejeje wimenyereza. Buri
+                kibazo ugikora mumasegonda 60 sec, iyo arangiye utarahitamo
+                kirasubizwa mwibara{" "}
+                <span className="bg-green-500 h-3 w-3 inline-block"></span>.
+                Utsinzwe nikibazo birangwa nibara{" "}
+                <span className="bg-red-500 h-3 w-3 inline-block"></span> ndetse
+                nibara{" "}
+                <span className="bg-green-500 h-3 w-3 inline-block"></span>{" "}
+                rikosora ikibazo, wasoza ibibazo 20 ukanda kuri submit ukabona
+                amanota.
               </p>
               <button className="btn" onClick={() => setStartQuiz(true)}>
-                Start Quiz
+                Tangira uyu umwitozo
               </button>
             </>
           ) : showResult ? (
             <>
-              <h2>
-                You scored {score} out of {data.length}
+              <h2 className="text-2xl font-bold">
+                Wabonye {score}/{data.length}
               </h2>
               <h3>{feedbackMessage}</h3>
               <button className="btn" onClick={resetQuiz}>

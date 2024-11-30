@@ -27,11 +27,11 @@ function ExerciseCard({ exerciseNumber }: ExerciseCardProps) {
 
       {(currentUser && currentUser.user.paid) || exerciseNumber === 1 ? (
         <Link to={`/exercise/${exerciseNumber}`}>
-          <button className="btn w-full">Tangira</button>
+          <button className="btn w-full">Kora uyu mwitozo</button>
         </Link>
       ) : (
         <Link to="/pricing">
-          <button className="btn w-full">Tangira</button>
+          <button className="btn w-full">Kora uyu mwitozo</button>
         </Link>
       )}
     </div>

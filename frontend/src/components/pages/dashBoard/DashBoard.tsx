@@ -10,8 +10,9 @@ type User = {
   isAdmin: boolean;
   paid: boolean;
   profilePic: string;
+  datePaid?: string; // Optional since it may not exist for unpaid users
   __v: number;
-  createdAt: string; // Ensure this field exists in your API
+  createdAt: string;
 };
 
 type ApiResponse = {
@@ -61,24 +62,31 @@ function DashBoard() {
         <div className="text-center mt-10 text-red-500">{error}</div>
       ) : (
         <table className="table">
-          {/* head */}
+          {/* Table Head */}
           <thead>
             <tr>
               <th>#</th>
               <th>Name</th>
               <th>Phone</th>
               <th>Paid</th>
+              <th>Date Paid</th>
               <th>Profile Picture</th>
               <th>Date Joined</th>
             </tr>
           </thead>
+          {/* Table Body */}
           <tbody>
             {data.map((user, index) => (
               <tr key={user._id}>
                 <th>{index + 1}</th>
                 <td>{user.userName}</td>
                 <td>{user.phone}</td>
-                <td>{user.paid ? "Yes" : "No"}</td>
+                <td>{user.paid ? "Yes" : "❌"}</td>
+                <td>
+                  {user.paid && user.datePaid
+                    ? moment(user.datePaid).format("YYYY-MM-DD")
+                    : "❌"}
+                </td>
                 <td>
                   <img
                     src={user.profilePic}
