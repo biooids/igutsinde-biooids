@@ -1,10 +1,12 @@
 {
   "name": "igutsinde",
   "version": "1.0.0",
-  "description": "backend ",
-  "main": "./backend/index.ts",
+  "description": "server for igutsinde",
+  "main": "./server/index.ts",
   "scripts": {
-    "dev": "nodemon"
+    "dev": "nodemon server/index.js",
+    "start": "node server/index.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "biooids",
   "license": "ISC",
