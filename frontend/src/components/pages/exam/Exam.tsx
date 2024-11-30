@@ -3,14 +3,15 @@ import { examQuestions } from "../../../assets/questions/examQuestions";
 import { useEffect, useRef, useState } from "react";
 import "./exam.css";
 import { PiSirenFill } from "react-icons/pi";
+import { useCallback } from "react";
 
 function Exam() {
   const { examId } = useParams();
 
   const [userPaid, setUserPaid] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const checkingUserCookie = async () => {
+  const checkingUserCookie = useCallback(async () => {
     try {
       const res = await fetch("/api/payment/cheCkingUserPaidCookie");
       const data = await res.json();
@@ -20,55 +21,37 @@ function Exam() {
         setError(data.message);
         return;
       }
-    } catch (error: any) {
-      setError(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("An unknown error occurred");
+      }
     }
-  };
+  }, [examId]);
 
   useEffect(() => {
     checkingUserCookie();
-  }, []);
+  }, [checkingUserCookie]);
 
   const examData = examQuestions.find(
     (exam) => exam.examNumber === Number(examId)
   );
 
-  if (!examData) {
-    return <div>Exercise not found for {examId || "no parameter passed"}</div>;
-  }
-
-  const [data] = useState(examData.data);
+  // Ensure hooks are called unconditionally
+  const [data] = useState(examData ? examData.data : []);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [selectedAnswers, setSelectedAnswers] = useState(
-    Array(data.length).fill(null)
+    Array(examData?.data?.length || 0).fill(null)
   );
   const [startQuiz, setStartQuiz] = useState(false);
-  const [timer, setTimer] = useState(data.length * 60);
-  const [lock, setLock] = useState(false); // Lock state for preventing selection
+  const [timer, setTimer] = useState((examData?.data?.length || 0) * 60);
+  const [lock, setLock] = useState(false);
 
-  // Define optionRefs with the correct type
   const optionRefs = useRef<(HTMLLIElement | null)[][]>([]);
 
-  useEffect(() => {
-    if (startQuiz && timer > 0 && !showResult) {
-      const countdown = setInterval(() => {
-        setTimer((prev) => prev - 1);
-      }, 1000);
-      return () => clearInterval(countdown);
-    } else if (timer === 0) {
-      handleSubmit();
-    }
-  }, [timer, startQuiz, showResult]);
-
-  const handleSelectAnswer = (questionIndex: number, optionIndex: number) => {
-    if (lock) return; // Prevent selection if locked
-    const updatedAnswers = [...selectedAnswers];
-    updatedAnswers[questionIndex] = optionIndex;
-    setSelectedAnswers(updatedAnswers);
-  };
-
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     let finalScore = 0;
     data.forEach((question, i) => {
       if (selectedAnswers[i] === question.ans) {
@@ -84,13 +67,31 @@ function Exam() {
     setScore(finalScore);
     setShowResult(true);
     setLock(true); // Lock after submitting
+  }, [data, selectedAnswers]);
+
+  useEffect(() => {
+    if (startQuiz && timer > 0 && !showResult) {
+      const countdown = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(countdown);
+    } else if (timer === 0) {
+      handleSubmit();
+    }
+  }, [timer, startQuiz, showResult, handleSubmit]);
+
+  const handleSelectAnswer = (questionIndex: number, optionIndex: number) => {
+    if (lock) return; // Prevent selection if locked
+    const updatedAnswers = [...selectedAnswers];
+    updatedAnswers[questionIndex] = optionIndex;
+    setSelectedAnswers(updatedAnswers);
   };
 
   const handleReset = () => {
     setScore(0);
     setShowResult(false);
     setSelectedAnswers(Array(data.length).fill(null));
-    setTimer(data.length * 30);
+    setTimer(data.length * 60);
     setStartQuiz(false);
     setLock(false); // Unlock for reset
     optionRefs.current.forEach((question) =>
@@ -115,17 +116,21 @@ function Exam() {
       .padStart(2, "0")}`;
   };
 
+  if (!examData) {
+    return <div>Exercise not found for {examId || "no parameter passed"}</div>;
+  }
+
   return (
     <div className="exam-container min-h-screen">
       {!userPaid ? (
-        <section className="exam-shadowed-card p-3  rounded-lg flex flex-col gap-3 m-auto max-w-[300px] mt-5 ">
-          <h2 className="text-red-500 text-2xl font-bold flex gap-3  items-center">
+        <section className="exam-shadowed-card p-3 rounded-lg flex flex-col gap-3 m-auto max-w-[300px] mt-5 ">
+          <h2 className="text-red-500 text-2xl font-bold flex gap-3 items-center">
             <PiSirenFill className="animate-pulse" />
-            Alert! Critical error :
+            Alert! Critical error:
           </h2>
           <p className="text-red-500">{error}</p>
           <p>
-            The Data we have about you indicate that you haven't paid. You need
+            The data we have about you indicates that you haven't paid. You need
             to pay to access this Exam. Please{" "}
             <span>
               <Link
@@ -142,7 +147,7 @@ function Exam() {
           </Link>
         </section>
       ) : (
-        <section className="exam-shadowed-card mt-5 flex flex-col gap-3 sm:w-[640px] m-auto  p-5 rounded-lg">
+        <section className="exam-shadowed-card mt-5 flex flex-col gap-3 sm:w-[640px] m-auto p-5 rounded-lg">
           {!startQuiz ? (
             <div className="flex flex-col gap-3">
               <p>
@@ -153,7 +158,7 @@ function Exam() {
                 <span className="text-red-500"> Failed</span> watsinda
                 bikarangwa nijambo
                 <span className="text-green-500"> Pass</span> noneho ugahita
-                werekwa nuko byari gusubizwa 1-20
+                werekwa nuko byari gusubizwa 1-20.
               </p>
               <button className="btn" onClick={() => setStartQuiz(true)}>
                 kora Ikizami
@@ -161,13 +166,13 @@ function Exam() {
             </div>
           ) : (
             <section className="flex flex-col gap-3">
-              <div className="flex flex-col gap-3  bg-white bg-opacity-5 backdrop-blur-lg p-5 rounded-lg sticky top-0">
+              <div className="flex flex-col gap-3 bg-white bg-opacity-5 backdrop-blur-lg p-5 rounded-lg sticky top-0">
                 {showResult && (
                   <div className="result-section">
                     <h2 className="text-xl font-bold">
                       Wabonye {score} kuri {data.length}
                     </h2>
-                    <h3>Comment : {feedbackMessage}</h3>
+                    <h3>Comment: {feedbackMessage}</h3>
                   </div>
                 )}
                 <div className="timer">Time left: {formatTime(timer)}</div>
@@ -178,7 +183,7 @@ function Exam() {
                   <h2>
                     {questionIndex + 1}. {question.question}
                   </h2>
-                  <ul className="flex flex-col gap-1 text-white ">
+                  <ul className="flex flex-col gap-1 text-white">
                     {question.options.map((option, optionIndex) => (
                       <li
                         key={optionIndex}
@@ -188,15 +193,11 @@ function Exam() {
                           }
                           optionRefs.current[questionIndex][optionIndex] = el;
                         }}
-                        className={`
-                        rounded-lg
-                        bg-black
-                        bg-opacity-50                        ${
+                        className={`rounded-lg bg-black bg-opacity-50 ${
                           selectedAnswers[questionIndex] === optionIndex
                             ? "selected"
                             : ""
-                        }
-                      `}
+                        }`}
                         onClick={() =>
                           handleSelectAnswer(questionIndex, optionIndex)
                         }
@@ -207,8 +208,8 @@ function Exam() {
                   </ul>
                 </div>
               ))}
-              <div className="flex  flex-col gap-3">
-                <p>Niba warangije :</p>
+              <div className="flex flex-col gap-3">
+                <p>Niba warangije:</p>
                 <button
                   className="btn"
                   onClick={showResult ? handleReset : handleSubmit}

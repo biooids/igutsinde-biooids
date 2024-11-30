@@ -203,10 +203,10 @@ function Exercise() {
               <h2>
                 {index + 1}. {currentQuestion.question}
               </h2>
-              {/* <button className="btn" onClick={() => setShowHint(!showHint)}>
+              <button className="btn" onClick={() => setShowHint(!showHint)}>
                 Show Hint
               </button>
-              {showHint && <p className="hint">{currentQuestion.hint}</p>} */}
+              {showHint && <p className="hint">{currentQuestion.hint}</p>}
               <ul className="text-white">
                 {currentQuestion.options.map((option, i) => (
                   <li
