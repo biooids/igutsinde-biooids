@@ -86,7 +86,13 @@ function HeaderComp() {
       </nav>
       {currentUser ? (
         <div className="flex items-center justify-center  gap-1">
-          <p> {currentUser.user.userName}</p>
+          <p className="font-bold w-[70px] overflow-hidden h-6 line-clamp-1">
+            {" "}
+            {currentUser.user.userName} Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Error totam sunt quos modi illum odit, consequatur
+            doloremque praesentium esse accusamus consequuntur eum atque quasi
+            repellendus eveniet facere ducimus cumque? Suscipit.{" "}
+          </p>
           <p>
             {currentUser.user.paid ? (
               <RiCheckDoubleFill className="text-green-500" />

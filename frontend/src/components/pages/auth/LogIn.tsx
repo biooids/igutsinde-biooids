@@ -67,7 +67,7 @@ function LogIn() {
           <button className="btn w-full">Kora konti</button>
         </Link>
       </div>
-      <div className="card  w-full max-w-sm shrink-0 shadow-2xl bg-base-100">
+      <div className="card  w-full max-w-sm shrink-0 shadow-2xl bg-black">
         <form onSubmit={handleSubmit} className="card-body">
           <div className="form-control">
             <label className="label">

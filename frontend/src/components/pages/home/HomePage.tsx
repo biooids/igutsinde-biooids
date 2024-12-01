@@ -55,7 +55,7 @@ function HomePage() {
             <button className="btn w-full">Kora Ikizami</button>
           </Link>
         </div>
-        <div className="home-card flex flex-col gap-3 rounded-lg">
+        <div className="home-card flex flex-col gap-3 rounded-lg text-white">
           <h2 className="text-2xl font-bold text-green-500">Inkoranya </h2>
           <div className="flex flex-wrap gap-3">
             <Link to="ibyapa">
