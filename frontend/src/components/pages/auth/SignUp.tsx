@@ -60,13 +60,14 @@ function SignUp() {
   return (
     <div className="min-h-screen flex flex-col sm:flex-row gap-3 p-3 justify-center items-center">
       <div className="max-w-sm flex flex-col gap-3  ">
-        <h1 className="text-3xl font-bold text-green-500">Igutsinde</h1>
+        <h2 className="text-3xl font-bold text-green-500">Igutsinde</h2>
         <p>
           Urakaza neza kuri igu tsinde, niba nta konti ufite, cyangwa uri
-          mushya, uzuza i fomu. Niba warafunguje konti, kanda aha,
+          mushya, uzuza iyi fomu. Niba warafunguje konti, kanda kuri{" "}
+          <span className="font-bold text-green-500">Mfite konti</span>,
         </p>
         <Link to="/log-in">
-          <button className="btn w-full">Konti yanjye</button>
+          <button className="btn w-full">Mfite konti</button>
         </Link>
       </div>
       <div className="card w-full max-w-sm shrink-0 shadow-2xl  bg-black ">

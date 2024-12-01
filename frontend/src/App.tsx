@@ -16,6 +16,7 @@ import Pricing from "./components/pages/pay/Pricing";
 import AuthenticatedUser from "./components/mainComp/AuthenticatedUser";
 import DashBoard from "./components/pages/dashBoard/DashBoard";
 import Ibyapa from "./components/pages/reading/Ibyapa";
+import AuthMethod from "./components/pages/auth/AuthMethod";
 
 function App() {
   const router = createBrowserRouter([
@@ -88,6 +89,10 @@ function App() {
     {
       path: "/sign-up",
       element: <SignUp />,
+    },
+    {
+      path: "auth-method",
+      element: <AuthMethod />,
     },
   ]);
   return <RouterProvider router={router} />;

@@ -58,13 +58,14 @@ function LogIn() {
   return (
     <div className="min-h-screen flex flex-col sm:flex-row gap-3 p-3 justify-center items-center">
       <div className="max-w-sm flex flex-col gap-3  ">
-        <h1 className="text-3xl font-bold text-green-500">Igutsinde</h1>
+        <h2 className="text-3xl font-bold text-green-500">Igutsinde</h2>
         <p>
           Urakaza neza kuri igu tsinde, Niba warafunguje konti, uzuza ino fomu.
-          Niba nta konti ufite, cyangwa uri mushya, kanda aha,
+          Niba nta konti ufite, cyangwa uri mushya, kanda kuri{" "}
+          <span className="font-bold text-green-500">Funguza konti</span>
         </p>
         <Link to="/sign-up">
-          <button className="btn w-full">Kora konti</button>
+          <button className="btn w-full">Funguza konti.</button>
         </Link>
       </div>
       <div className="card  w-full max-w-sm shrink-0 shadow-2xl bg-black">
