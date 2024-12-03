@@ -70,7 +70,7 @@ function SignUp() {
           <button className="btn w-full">Mfite konti</button>
         </Link>
       </div>
-      <div className="card w-full max-w-sm shrink-0 shadow-2xl  bg-black ">
+      <div className="card w-full max-w-sm shrink-0 shadow-2xl  bg-black text-white">
         <form onSubmit={handleSubmit} className="card-body">
           <div className="form-control">
             <label className="label">
@@ -120,7 +120,10 @@ function SignUp() {
           </div>
 
           <div className="mt-3">
-            <button type="submit" className="btn w-full">
+            <button
+              type="submit"
+              className="btn w-full bg-green-500 text-white hover:bg-green-600"
+            >
               {loading ? "Loading..." : "Injira"}
             </button>
           </div>

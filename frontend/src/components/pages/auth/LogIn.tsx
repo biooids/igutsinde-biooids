@@ -68,32 +68,37 @@ function LogIn() {
           <button className="btn w-full">Funguza konti.</button>
         </Link>
       </div>
-      <div className="card  w-full max-w-sm shrink-0 shadow-2xl bg-black">
+      <div className="card w-full max-w-sm shrink-0 shadow-2xl bg-black text-white">
         <form onSubmit={handleSubmit} className="card-body">
+          {/* Phone Field */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Phone</span>
+              <span className="label-text text-white">Phone</span>
             </label>
             <input
               id="phone"
               type="text"
               placeholder="Enter phone"
-              className="input input-bordered"
+              className="input input-bordered text-black placeholder-gray-500"
               onChange={handleChange}
               required
+              autoComplete="off"
             />
           </div>
+
+          {/* Password Field */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Password</span>
+              <span className="label-text text-white">Password</span>
             </label>
             <input
               id="password"
               type={showPassword ? "text" : "password"}
               placeholder="Enter password"
-              className="input input-bordered"
+              className="input input-bordered text-black placeholder-gray-500"
               onChange={handleChange}
               required
+              autoComplete="off"
             />
             <div className="mt-3 cursor-pointer">
               {showPassword ? (
@@ -104,12 +109,18 @@ function LogIn() {
             </div>
           </div>
 
+          {/* Submit Button */}
           <div className="mt-3">
-            <button type="submit" className="btn w-full">
+            <button
+              type="submit"
+              className="btn w-full bg-green-500 text-white hover:bg-green-600"
+            >
               {loading ? "Loading..." : "Injira"}
             </button>
           </div>
         </form>
+
+        {/* Error Alert */}
         {error && (
           <div className="alert alert-error mt-3">
             <svg
